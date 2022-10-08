@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient1"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="320dp"
+        android:layout_height="300dp"
+        android:background="@drawable/user_login_layout_background"
+        android:elevation="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        tools:ignore="MissingConstraints">
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/fig_tree_bold"
+            android:text="@string/loginLayoutHeadingText"
+            android:textColor="@color/Blue"
+            android:textSize="30sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/UserNameLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColorHint="@color/Indigo"
+            app:boxStrokeColor="@color/Indigo"
+            app:boxStrokeWidth="2dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/Indigo"
+            app:hintTextColor="@color/Blue"
+            app:startIconDrawable="@drawable/user_ic"
+            app:startIconTint="@color/Indigo">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/UserNameField"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="@string/userNameFieldHint"
+                android:textColor="@color/Indigo"
+                android:textSize="18sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/PinLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColorHint="@color/Indigo"
+            app:boxStrokeColor="@color/Indigo"
+            app:boxStrokeErrorColor="@color/ErrorRed"
+            app:boxStrokeWidth="2dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="4"
+            app:counterOverflowTextColor="@color/ErrorRed"
+            app:counterTextColor="@color/Indigo"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/Indigo"
+            app:hintTextColor="@color/Blue"
+            app:startIconDrawable="@drawable/password"
+            app:startIconTint="@color/Indigo">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/PinField"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="@string/pinFieldHint"
+                android:inputType="numberPassword"
+                android:textColor="@color/Indigo"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/Blue"
+            android:elevation="10dp"
+            android:text="@string/loginBtnText"
+            android:textColor="@color/white"
+            app:cornerRadius="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:elevation="2dp"
+            android:fontFamily="@font/fig_tree_extra_bold"
+            android:gravity="center_vertical"
+            android:padding="35dp"
+            android:shadowColor="@color/white"
+            android:shadowDx="1"
+            android:shadowRadius="0.5"
+            android:text="@string/greetingsAtTheStart"
+            android:textColor="@color/Indigo"
+            android:textSize="40sp" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

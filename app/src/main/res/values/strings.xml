@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">c1ph3rBank</string>
+    <string name="userNameFieldHint">UserName</string>
+    <string name="pinFieldHint">4-digit Pin</string>
+    <string name="loginBtnText">Login</string>
+    <string name="loginLayoutHeadingText">Login:</string>
+    <string name="greetingsAtTheStart">Welcome to\nCipher Bank</string>
+</resources>
