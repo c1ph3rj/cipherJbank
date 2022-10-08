@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         userDetail = new UserDetail(MainActivity.this);
         try {
-            userDetail.getData();
+            userDetail. getData();
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
