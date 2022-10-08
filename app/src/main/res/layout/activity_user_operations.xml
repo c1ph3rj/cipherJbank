@@ -28,7 +28,7 @@
             android:shadowColor="@color/white"
             android:shadowDx="1"
             android:shadowRadius="0.5"
-            android:text="@string/greetingsToTheUser"
+            android:text= "@string/greetingsToTheUser"
             android:textColor="@color/Indigo"
             android:textSize="40sp" />
 
