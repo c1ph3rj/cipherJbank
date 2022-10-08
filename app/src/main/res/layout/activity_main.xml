@@ -20,6 +20,7 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.158"
         tools:ignore="MissingConstraints">
 
 
@@ -42,6 +43,10 @@
             android:layout_marginTop="10dp"
             android:textColorHint="@color/Indigo"
             app:boxStrokeColor="@color/Indigo"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
             app:boxStrokeWidth="2dp"
             app:endIconMode="clear_text"
             app:endIconTint="@color/Indigo"
@@ -68,6 +73,10 @@
             android:layout_marginTop="10dp"
             android:textColorHint="@color/Indigo"
             app:boxStrokeColor="@color/Indigo"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
             app:boxStrokeErrorColor="@color/ErrorRed"
             app:boxStrokeWidth="2dp"
             app:counterEnabled="true"
@@ -98,6 +107,7 @@
             android:backgroundTint="@color/Blue"
             android:elevation="10dp"
             android:text="@string/loginBtnText"
+            android:onClick="onClickLoginBtn"
             android:textColor="@color/white"
             app:cornerRadius="8dp" />
     </LinearLayout>
@@ -106,7 +116,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="68dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -128,4 +138,18 @@
             android:textSize="40sp" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/fig_tree_regular"
+        android:text="@string/greetingToNewUser"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,4 +5,5 @@
     <string name="loginBtnText">Login</string>
     <string name="loginLayoutHeadingText">Login:</string>
     <string name="greetingsAtTheStart">Welcome to\nCipher Bank</string>
+    <string name="greetingToNewUser">New user? \nPlease Contact Branch.</string>
 </resources>
