@@ -14,16 +14,22 @@ import java.util.ArrayList;
 
 public class UserDetail {
 
-    public String name;
 
 
-    private final MainActivity mainActivity;
+
     public JSONArray data;
     public ArrayList<UserDataBase> userDataBase = new ArrayList<>();
 
+    private MainActivity mainActivity;
+    public UserDetail() {
+
+    }
     public UserDetail(MainActivity mainActivity){
         this.mainActivity = mainActivity;
     }
+
+
+
     public void getData() throws IOException, JSONException {
         InputStream input = mainActivity.getAssets().open("Database.json");
         int length = input.available();

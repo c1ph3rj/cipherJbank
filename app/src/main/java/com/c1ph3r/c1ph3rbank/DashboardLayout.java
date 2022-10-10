@@ -19,6 +19,7 @@ public class DashboardLayout extends Fragment {
     UserDataBase userData;
     TextView greetTheUser, ATM_UserName, ATM_AccountNo, ATM_ExpiryDate;
     View view;
+    MaterialButton sendMoney, balance, deposit;
     public DashboardLayout(){
 
     }
@@ -47,19 +48,46 @@ public class DashboardLayout extends Fragment {
         ATM_AccountNo = view.findViewById(R.id.ATM_CardNo);
         ATM_ExpiryDate = view.findViewById(R.id.ATM_ExpiryDate);
         if(view != null){
-            greetTheUser.setText(greetTheUser.getText()+ userData.getName());
+            sendMoney = view.findViewById(R.id.SendMoney);
+            balance = view.findViewById(R.id.Balance);
+            deposit = view.findViewById(R.id.deposit);
+            greetTheUser.setText("");
+            greetTheUser.setText("Welcome\n" + userData.getName());
             ATM_UserName.setText( userData.getName());
             ATM_AccountNo.setText(String.valueOf( userData.getAccountNo()));
             ATM_ExpiryDate.setText( userData.getExpiryDate());
+
+            sendMoney.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), Withdraw.class);
+                    intent.putExtra("value", userData);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+            });
+            balance.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), Balance.class);
+                    intent.putExtra("value", userData);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+            });
+            deposit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), Deposit.class);
+                    intent.putExtra("value", userData);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+            });
         }
 
     }
 
-    public void onClickSendMoneyBtn(View view) {
-        Intent intent = new Intent(getActivity(), MainActivity.class);
 
-        startActivity(intent);
-
-    }
 
 }

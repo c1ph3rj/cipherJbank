@@ -4,24 +4,23 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-import com.c1ph3r.c1ph3rbank.controller.UserDetail;
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import org.json.JSONObject;
-
 public class DashBoard extends AppCompatActivity {
     UserDataBase userData = null;
 
+    public DashBoard(UserDataBase userData){
+        this.userData = userData;
+    }
     public DashBoard(){
-
+        Withdraw withdraw = new Withdraw();
+        this.userData = withdraw.userData;
     }
 
     @Override
@@ -30,7 +29,6 @@ public class DashBoard extends AppCompatActivity {
         setContentView(R.layout.activity_dash_board);
         Intent intent = getIntent();
         userData = (UserDataBase)intent.getSerializableExtra("value");
-
 
         BottomNavigationView bottomNavigation = findViewById(R.id.BottomNav);
 

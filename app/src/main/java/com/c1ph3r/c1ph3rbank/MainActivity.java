@@ -14,8 +14,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 
 
@@ -24,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     UserVerification userVerification;
     TextInputEditText userName, pin;
     TextInputLayout pinLayout, userNameLayout;
-    public UserDataBase userData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

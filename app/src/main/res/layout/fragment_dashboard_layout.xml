@@ -84,40 +84,40 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/button3"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/Balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Balance"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintEnd_toStartOf="@+id/deposit"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button4"
+        app:layout_constraintStart_toEndOf="@+id/SendMoney"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.324" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button4"
+        android:id="@+id/SendMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send Money"
         android:onClick="onClickSendMoneyBtn"
+        android:text="Send Money"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintEnd_toStartOf="@+id/Balance"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.322" />
 
-    <Button
-        android:id="@+id/button5"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/deposit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Money"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button3"
+        app:layout_constraintStart_toEndOf="@+id/Balance"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.324" />
 
@@ -137,7 +137,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/options"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintBottom_toTopOf="@+id/SendMoney"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.155"
         app:layout_constraintStart_toStartOf="parent"

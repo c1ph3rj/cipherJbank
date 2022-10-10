@@ -35,6 +35,7 @@ public class UserVerification {
                     userData = mainActivity.userDetail.userDataBase.get(i);
                     intent.putExtra("value", userData);
                     mainActivity.startActivity(intent);
+                    mainActivity.finish();
                 }else{
                     pinLayout.setError("Invalid Pin");
                     pinLayout.setBoxStrokeColor(mainActivity.getColor(R.color.ErrorRed));
