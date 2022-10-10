@@ -58,6 +58,7 @@
                 android:id="@+id/UserNameField"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
+                android:onClick="OnClickUserLayout"
                 android:hint="@string/userNameFieldHint"
                 android:textColor="@color/Indigo"
                 android:textSize="18sp" />
@@ -95,6 +96,7 @@
                 android:layout_height="55dp"
                 android:hint="@string/pinFieldHint"
                 android:inputType="numberPassword"
+                android:onClick="OnClickPinLayout"
                 android:textColor="@color/Indigo"
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>

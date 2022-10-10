@@ -17,7 +17,7 @@ public class UserDetail {
     public String name;
 
 
-    private MainActivity mainActivity;
+    private final MainActivity mainActivity;
     public JSONArray data;
     public ArrayList<UserDataBase> userDataBase = new ArrayList<>();
 
@@ -38,8 +38,9 @@ public class UserDetail {
             int pin = ((int)((JSONObject) data.get(i)).get("pin"));
             String accountType = (String)((JSONObject) data.get(i)).get("accountType");
             int balance = ((int)((JSONObject) data.get(i)).get("balance"));
+            String expiryDate = (String)((JSONObject) data.get(i)).get("ExpiryDate");
             //Adding the Object values to the ArrayList of Class constructors.
-            userDataBase.add(new UserDataBase(name, accountNo, pin, accountType, balance));
+            userDataBase.add(new UserDataBase(name, accountNo, pin, accountType, balance, expiryDate));
         }
     }
 }
