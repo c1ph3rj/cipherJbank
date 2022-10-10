@@ -27,7 +27,9 @@ public class Balance extends AppCompatActivity {
         backBtnBalance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent intent = new Intent(Balance.this, DashBoard.class);
+                intent.putExtra("value", userData);
+                startActivity(intent);
             }
         });
     }

@@ -16,4 +16,6 @@
         android:fontStyle="normal"/>
     <font android:font="@font/pacifico_regular"
         android:fontStyle="normal"/>
+    <font android:font="@font/alata_regular"
+        android:fontStyle="normal"/>
 </font-family>

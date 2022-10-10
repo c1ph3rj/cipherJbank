@@ -58,6 +58,7 @@ public class Withdraw extends AppCompatActivity {
                 userData.setBalance(userData.getBalance() - Integer.parseInt(String.valueOf(amountField.getText())));
                 System.out.println(userData.getBalance());
             getSupportFragmentManager().beginTransaction().replace(R.id.withdrawLayout, new ConfirmationForPayment(userData)).commit();
+
         });
         builder.setNegativeButton("Cancel", (DialogInterface.OnClickListener) (dialog, which) -> {
         });

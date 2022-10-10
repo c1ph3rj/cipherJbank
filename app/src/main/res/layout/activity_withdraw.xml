@@ -4,12 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/gradient1"
     android:id="@+id/withdrawLayout"
     tools:context=".Withdraw">
 
     <LinearLayout
         android:layout_width="300dp"
+        android:padding="10dp"
+        android:background="@drawable/user_login_layout_background"
+        android:elevation="8dp"
         android:layout_height="450dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
@@ -22,6 +25,9 @@
 
         <TextView
             android:id="@+id/WithdrawTitle"
+            android:textSize="25dp"
+            android:fontFamily="@font/alata_regular"
+            android:textColor="@color/Indigo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="To Withdraw:" />
@@ -55,7 +61,10 @@
             android:id="@+id/withdrawButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="260dp"
+            app:cornerRadius="8dp"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/Blue"
             android:onClick="OnClickVerifyPay"
             android:text="Button" />
     </LinearLayout>
