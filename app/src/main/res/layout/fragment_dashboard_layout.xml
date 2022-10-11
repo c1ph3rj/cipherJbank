@@ -9,6 +9,7 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="0dp">
 
+
     <TextView
         android:id="@+id/greetTheUser"
         android:layout_width="wrap_content"
@@ -23,98 +24,36 @@
         app:layout_constraintHorizontal_bias="0.139"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.065" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/Balance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Balance"
-        android:textColor="@color/white"
-        app:cornerRadius="8dp"
-        app:backgroundTint="@color/Blue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/deposit"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/SendMoney"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.368" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/deposit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Money"
-        app:cornerRadius="8dp"
-        android:textColor="@color/white"
-        app:backgroundTint="@color/Blue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/Balance"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.368" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/SendMoney"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClickSendMoneyBtn"
-        android:text="Send Money"
-        android:textColor="@color/white"
-        app:cornerRadius="8dp"
-        app:backgroundTint="@color/Blue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/Balance"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.366" />
-
-    <TextView
-        android:id="@+id/options"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/alata_regular"
-        android:text="@string/options"
-        android:textColor="@color/Blue"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/SendMoney"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.112"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.869" />
+        app:layout_constraintVertical_bias="0.061" />
 
     <LinearLayout
         android:id="@+id/CardPart"
-        android:layout_width="wrap_content"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/card_layout_background"
-        android:orientation="vertical"
-        android:padding="15dp"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/card_background"
         android:elevation="8dp"
+        android:orientation="vertical"
+        android:padding="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Balance"
-        app:layout_constraintVertical_bias="0.4">
+        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/ATM_Card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/alata_regular"
-            android:text="Virtual Card:"
             android:paddingBottom="10dp"
+            android:text="@string/virtual_card_text"
             android:textColor="@color/Blue"
             android:textSize="20sp" />
 
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="300dp"
-            android:layout_height="190dp"
+            android:layout_height="180dp"
             android:background="@drawable/atm_card_background"
             android:elevation="5dp"
             android:orientation="vertical">
@@ -142,7 +81,8 @@
                     android:text="@string/ATM_CardType"
                     android:textAlignment="textEnd"
                     android:textColor="@color/white"
-                    android:textSize="20dp" />
+                    android:textSize="20sp"
+                    tools:ignore="RtlSymmetry" />
             </LinearLayout>
 
             <TextView
@@ -153,7 +93,8 @@
                 android:paddingStart="10dp"
                 android:paddingBottom="10dp"
                 android:text="@string/ATM_UserName"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                tools:ignore="RtlSymmetry" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -168,20 +109,22 @@
                     android:padding="4dp"
                     android:paddingStart="10dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/chip1" />
+                    android:src="@drawable/chip1"
+                    tools:ignore="RtlSymmetry" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/wifi"
                     android:layout_width="60dp"
                     android:layout_height="46dp"
                     android:layout_gravity="end"
-                    android:layout_marginLeft="180dp"
+                    android:layout_marginStart="180dp"
                     android:background="@drawable/done_background"
                     android:padding="4dp"
                     android:paddingStart="10dp"
                     android:rotation="90"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_baseline_wifi_24" />
+                    android:src="@drawable/ic_baseline_wifi_24"
+                    tools:ignore="RtlSymmetry" />
             </LinearLayout>
 
             <LinearLayout
@@ -192,13 +135,14 @@
 
                 <TextView
                     android:id="@+id/ATM_CardNo"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/alata_regular"
                     android:paddingStart="10dp"
                     android:text="@string/ATM_CardNo"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    tools:ignore="RtlSymmetry" />
             </LinearLayout>
 
             <TextView
@@ -209,9 +153,73 @@
                 android:paddingBottom="5dp"
                 android:text="@string/ATM_ExpiryDate"
                 android:textAlignment="textEnd"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                tools:ignore="RtlSymmetry" />
 
         </LinearLayout>
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_background"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/CardPart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.553"
+        tools:ignore="RtlSymmetry">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/SendMoney"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="10dp"
+            android:drawableTop="@drawable/send_money"
+            android:padding="8dp"
+            android:text="@string/send_money_Btn_text"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/Blue"
+            app:cornerRadius="15dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/Balance"
+            android:layout_width="90dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:drawableTop="@drawable/balance_ic"
+            android:padding="8dp"
+            android:text="@string/balance_btn_text"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/Blue"
+            app:cornerRadius="15dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/deposit"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="10dp"
+            android:drawableTop="@drawable/add_money_ic"
+            android:padding="8dp"
+            android:text="@string/add_money_btn_text"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/Blue"
+            app:cornerRadius="15dp" />
+    </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

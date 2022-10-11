@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 <item>
     <shape>
-        <solid android:color="@color/PeriWinkle"/>
+        <solid android:color="@color/white"/>
         <corners android:radius="100dp"/>
         <stroke android:color="@color/Blue" android:width="2dp"/>
     </shape>
