@@ -27,4 +27,5 @@
     <string name="add_money_btn_text">Add Money</string>
     <string name="virtual_card_text">Virtual Card:</string>
     <string name="balance_btn_text">Balance</string>
+    <string name="show_transactions_text">Show Transactions</string>
 </resources>
