@@ -42,11 +42,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:textColorHint="@color/Indigo"
-            app:boxStrokeColor="@color/Indigo"
-            app:boxCornerRadiusTopStart="12dp"
             app:boxCornerRadiusBottomEnd="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxStrokeColor="@color/Indigo"
             app:boxStrokeWidth="2dp"
             app:endIconMode="clear_text"
             app:endIconTint="@color/Indigo"
@@ -58,8 +58,8 @@
                 android:id="@+id/UserNameField"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:onClick="OnClickUserLayout"
                 android:hint="@string/userNameFieldHint"
+                android:onClick="OnClickUserLayout"
                 android:textColor="@color/Indigo"
                 android:textSize="18sp" />
 
@@ -73,11 +73,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:textColorHint="@color/Indigo"
-            app:boxStrokeColor="@color/Indigo"
-            app:boxCornerRadiusTopStart="12dp"
             app:boxCornerRadiusBottomEnd="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxStrokeColor="@color/Indigo"
             app:boxStrokeErrorColor="@color/ErrorRed"
             app:boxStrokeWidth="2dp"
             app:counterEnabled="true"
@@ -108,8 +108,8 @@
             android:layout_margin="10dp"
             android:backgroundTint="@color/Blue"
             android:elevation="10dp"
-            android:text="@string/loginBtnText"
             android:onClick="onClickLoginBtn"
+            android:text="@string/loginBtnText"
             android:textColor="@color/white"
             app:cornerRadius="8dp" />
     </LinearLayout>
@@ -141,17 +141,22 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView"
+    <android.widget.Button
+        android:id="@+id/newUserBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="11dp"
+        android:background="@null"
         android:fontFamily="@font/fig_tree_regular"
         android:text="@string/greetingToNewUser"
-        android:textAlignment="center"
         android:textColor="@color/white"
+        android:onClick="onClickNewUserRegister"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintVertical_bias="0.0" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

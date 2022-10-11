@@ -13,6 +13,13 @@
         android:theme="@style/Theme.C1ph3rBank"
         tools:targetApi="31">
         <activity
+            android:name=".NewUserRegisterPage"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Deposit"
             android:exported="false">
             <meta-data

@@ -28,4 +28,11 @@
     <string name="virtual_card_text">Virtual Card:</string>
     <string name="balance_btn_text">Balance</string>
     <string name="show_transactions_text">Show Transactions</string>
+    <string name="greetToTheNewUserText">Enter Your Details\nBelow:</string>
+    <string name="ReEnterPinText">Confirm Your Pin</string>
+    <string name="select_account_type_field">Select Account Type</string>
+    <string name="savingsBtn">Savings</string>
+    <string name="currentBtn">Current</string>
+    <string name="accountNumberText">AccountNumber</string>
+    <string name="submitBtn">Submit</string>
 </resources>

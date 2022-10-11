@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient1"
+    tools:context=".NewUserRegisterPage">
+    <LinearLayout
+        android:id="@+id/linearLayoutR"
+        android:layout_width="320dp"
+        android:paddingTop="10dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/user_login_layout_background"
+        android:elevation="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.158"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/UserNameLayoutR"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColorHint="@color/Indigo"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxStrokeColor="@color/Indigo"
+            app:boxStrokeWidth="2dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/Indigo"
+            app:hintTextColor="@color/Blue"
+            app:startIconDrawable="@drawable/user_ic"
+            app:startIconTint="@color/Indigo">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/UserNameFieldR"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="@string/userNameFieldHint"
+                android:textColor="@color/Indigo"
+                android:textSize="18sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/PinLayoutR"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColorHint="@color/Indigo"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxStrokeColor="@color/Indigo"
+            app:boxStrokeWidth="2dp"
+            app:counterTextColor="@color/Indigo"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/Indigo"
+            app:hintTextColor="@color/Blue"
+            app:startIconDrawable="@drawable/password"
+            app:startIconTint="@color/Indigo">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/PinFieldR"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:maxLength="4"
+                android:hint="@string/pinFieldHint"
+                android:inputType="numberPassword"
+                android:textColor="@color/Indigo"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ReEnterPinLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColorHint="@color/Indigo"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxStrokeColor="@color/Indigo"
+            app:boxStrokeWidth="2dp"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/Indigo"
+            app:hintTextColor="@color/Blue"
+            app:startIconDrawable="@drawable/password"
+            app:startIconTint="@color/Indigo">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ReEnterPinField"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:maxLength="4"
+                android:hint="@string/ReEnterPinText"
+                android:inputType="numberPassword"
+                android:textColor="@color/Indigo"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:paddingStart="24dp"
+            android:paddingTop="10dp"
+            android:fontFamily="@font/fig_tree_bold"
+            android:textColor="@color/Indigo"
+            android:layout_height="wrap_content"
+            android:text="@string/select_account_type_field"
+            tools:ignore="RtlSymmetry" />
+
+
+        <RadioGroup
+            android:id="@+id/accountTypeR"
+            android:checkedButton="@+id/radio_button_1"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:layout_height="wrap_content"
+            tools:ignore="RtlSymmetry">
+            <RadioButton
+            android:id="@+id/Savings"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+                app:buttonTint="@color/Indigo"
+                android:textColor="@color/Indigo"
+                android:paddingEnd="10dp"
+            android:text="@string/savingsBtn"/>
+
+            <RadioButton
+                android:id="@+id/Current"
+                android:layout_width="wrap_content"
+                app:buttonTint="@color/Indigo"
+                android:textColor="@color/Indigo"
+                android:layout_height="match_parent"
+                android:text="@string/currentBtn" />
+        </RadioGroup>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/accountNumberLayoutR"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/Indigo"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            android:paddingTop="6dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxStrokeColor="@color/Indigo"
+            app:boxStrokeWidth="2dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/Indigo"
+            app:hintTextColor="@color/Blue"
+            app:startIconDrawable="@drawable/ic_baseline_account_balance_24"
+            app:startIconTint="@color/Indigo">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/accountNumberR"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:maxLength="8"
+                android:hint="@string/accountNumberText"
+                android:textColor="@color/Indigo"
+                android:textSize="18sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/Submit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/Blue"
+            android:elevation="10dp"
+            android:onClick="onClickSubmitBtn"
+            android:text="@string/submitBtn"
+            android:textColor="@color/white"
+            app:cornerRadius="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_marginTop="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:elevation="2dp"
+            android:fontFamily="@font/fig_tree_extra_bold"
+            android:gravity="center_vertical"
+            android:paddingStart="35dp"
+            android:shadowColor="@color/white"
+            android:shadowDx="1"
+            android:shadowRadius="0.5"
+            android:text="@string/greetToTheNewUserText"
+            android:textColor="@color/Indigo"
+            android:textSize="30sp"
+            tools:ignore="RtlSymmetry" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

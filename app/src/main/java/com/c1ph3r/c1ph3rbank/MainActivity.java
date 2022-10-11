@@ -60,4 +60,9 @@ public class MainActivity extends AppCompatActivity {
         userNameLayout.setHintTextColor(ColorStateList.valueOf(getColor(R.color.Indigo)));
         userNameLayout.setBoxStrokeColor(getColor(R.color.Indigo));
     }
+
+    public void onClickNewUserRegister(View view) {
+        Intent intent = new Intent(this, NewUserRegisterPage.class);
+        startActivity(intent);
+    }
 }
