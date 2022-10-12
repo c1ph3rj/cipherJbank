@@ -1,52 +1,69 @@
 package com.c1ph3r.c1ph3rbank.controller;
 
-import com.c1ph3r.c1ph3rbank.MainActivity;
+import android.app.Activity;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
+import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 
 public class UserDetail {
 
 
-
-
-    public JSONArray data;
+    // THIS IS THE WHERE THE DATA IS STORED. AND THIS IS THE PART OF THE MAIN-ACTIVITY.class
     public ArrayList<UserDataBase> userDataBase = new ArrayList<>();
+    ContentValues contentValues;
+    SQLiteDatabase userDBWrite;
+    SQLiteDatabase userDBRead;
+    Cursor cursor;
+    UserDataBaseHelper userDataBaseHelper;
 
-    private MainActivity mainActivity;
-    public UserDetail() {
 
+    public UserDetail(Activity activity) {
+        userDataBaseHelper = new UserDataBaseHelper(activity);
+        userDBRead = userDataBaseHelper.getReadableDatabase();
+        contentValues = new ContentValues();
+        String[] tableNames = {"accountNumber","userName", "pin", "accountType", "expiryDate", "balance"};
+        cursor = userDBRead.query("userDetails", tableNames,null,null,null,null,null);
+        cursor.moveToFirst();
+        getUserDataBase();
     }
-    public UserDetail(MainActivity mainActivity){
-        this.mainActivity = mainActivity;
-    }
 
-
-
-    public void getData() throws IOException, JSONException {
-        InputStream input = mainActivity.getAssets().open("Database.json");
-        int length = input.available();
-        byte [] values = new byte[length];
-        input.read(values);
-        input.close();
-        data = new JSONArray(new String(values, "UTF-8"));
-        for (int i = 0;i<data.length();i++) {
-            //Storing the object values in a variables.
-            String name = (String)((JSONObject) data.get(i)).get("name");
-            int accountNo = ((int)((JSONObject) data.get(i)).get("accountNo"));
-            int pin = ((int)((JSONObject) data.get(i)).get("pin"));
-            String accountType = (String)((JSONObject) data.get(i)).get("accountType");
-            int balance = ((int)((JSONObject) data.get(i)).get("balance"));
-            String expiryDate = (String)((JSONObject) data.get(i)).get("ExpiryDate");
-            //Adding the Object values to the ArrayList of Class constructors.
+    public void getUserDataBase(){
+        cursor.moveToFirst();
+        while(cursor.moveToNext()){
+            int accountNo =  Integer.parseInt(cursor.getString(0));
+            String name = cursor.getString(1);
+            int pin = Integer.parseInt(cursor.getString(2));
+            String accountType = cursor.getString(3);
+            String expiryDate = cursor.getString(4);
+            int balance = Integer.parseInt(cursor.getString(5));
             userDataBase.add(new UserDataBase(name, accountNo, pin, accountType, balance, expiryDate));
+        }
+    }
+
+    public UserDataBase getUserData(int i){
+     UserDataBase userData = userDataBase.get(i);
+     return userData;
+    }
+
+    public void updateUserData(int i, int balance){
+        userDBWrite = userDataBaseHelper.getWritableDatabase();
+        UserDataBase userData = userDataBase.get(i);
+        cursor.moveToFirst();
+        String Name = userDataBase.get(i).getName();
+        while(cursor.moveToNext()){
+            if(Name.equals(cursor.getString(1))){
+                contentValues.put("pin", userData.getPin());
+                contentValues.put("balance", balance);
+                userDBWrite.update("userDetails",contentValues,"userName=?",new String[]{userData.getName()});
+                System.out.println("\n\n\n\n\n\n\n" + cursor.getString(5)+"\n\n\n\n\n\n");
+            }
+
         }
     }
 }

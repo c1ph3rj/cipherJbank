@@ -7,9 +7,14 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.c1ph3r.c1ph3rbank.controller.UserDetail;
 import com.c1ph3r.c1ph3rbank.controller.UserRegistration;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import org.json.JSONException;
+
+import java.io.IOException;
 
 public class NewUserRegisterPage extends AppCompatActivity {
     public TextInputEditText newUserName, newPin, newAccountNumber, reEnterPin;
@@ -20,9 +25,9 @@ public class NewUserRegisterPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user_register_page);
-        userRegistration = new UserRegistration();
         newUserName = findViewById(R.id.UserNameFieldR);
         newPin = findViewById(R.id.PinFieldR);
+        userRegistration = new UserRegistration(this);
         newAccountNumber = findViewById(R.id.accountNumberR);
         reEnterPin = findViewById(R.id.ReEnterPinField);
         newAccountType = findViewById(R.id.accountTypeR);
@@ -37,12 +42,10 @@ public class NewUserRegisterPage extends AppCompatActivity {
     }
 
     public void onClickSubmitBtn(View view) {
-        try{
             UserRegistration userRegistration = new UserRegistration(NewUserRegisterPage.this);
             userRegistration.userDataVerification();
-        }catch(Exception e){
-            System.out.println("\n\n\n\n\n\n\n\n\n " + e.getMessage());
-        }
     }
+
+
 
 }

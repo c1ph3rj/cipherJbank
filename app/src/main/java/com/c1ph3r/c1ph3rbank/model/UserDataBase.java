@@ -1,15 +1,22 @@
 package com.c1ph3r.c1ph3rbank.model;
 
+import android.app.Activity;
+
+import com.c1ph3r.c1ph3rbank.controller.UserDetail;
+
 import java.io.Serializable;
 
 //Pojo Class to store the user details.
 public class UserDataBase implements Serializable {
+
+
     //Setting these values as private so it cannot be accessed outside the class.
     private int pin;
     private int balance;
-    private final int accountNo;
-    private final String accountType;
-    public final String name;
+    private  int accountNo;
+    private  String accountType;
+    private   String name;
+
 
     public String getExpiryDate() {
         return expiryDate;
@@ -37,13 +44,16 @@ public class UserDataBase implements Serializable {
     }
 
     public void setBalance(int balance) {
-
         this.balance = balance;
     }
+
     public String getAccountType() {
         return accountType;
     }
 
+    public void setPin(int pin) {
+        this.pin = pin;
+    }
     public String getName() {
         return name;
     }

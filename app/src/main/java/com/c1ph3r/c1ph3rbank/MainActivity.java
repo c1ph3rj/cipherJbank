@@ -9,12 +9,8 @@ import android.view.View;
 
 import com.c1ph3r.c1ph3rbank.controller.UserDetail;
 import com.c1ph3r.c1ph3rbank.controller.UserVerification;
-import com.c1ph3r.c1ph3rbank.model.UserDataBase;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-
-import org.json.JSONException;
-import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -33,12 +29,8 @@ public class MainActivity extends AppCompatActivity {
         pin = findViewById(R.id.PinField);
 
         userDetail = new UserDetail(MainActivity.this);
+        userDetail.getUserDataBase();
         userVerification = new UserVerification(MainActivity.this,userName,pin,pinLayout,userNameLayout);
-        try {
-            userDetail.getData();
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
         userVerification.changeColorOfInputs();
 
 

@@ -35,4 +35,5 @@
     <string name="currentBtn">Current</string>
     <string name="accountNumberText">AccountNumber</string>
     <string name="submitBtn">Submit</string>
+    <string name="back_btn_confirm_pay">Back</string>
 </resources>

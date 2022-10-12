@@ -4,10 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.c1ph3r.c1ph3rbank.controller.UserDetail;
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -27,8 +30,11 @@ public class DashBoard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
-        Intent intent = getIntent();
-        userData = (UserDataBase)intent.getSerializableExtra("value");
+        UserDetail userDetail = new UserDetail(DashBoard.this);
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        int value = sharedPreferences.getInt("value", 0);
+        System.out.println("QWERTy"+value);
+        userData = userDetail.getUserData(value);
 
         BottomNavigationView bottomNavigation = findViewById(R.id.BottomNav);
 

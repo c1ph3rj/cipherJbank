@@ -7,8 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.c1ph3r.c1ph3rbank.MainActivity;
 import com.c1ph3r.c1ph3rbank.NewUserRegisterPage;
 import com.c1ph3r.c1ph3rbank.R;
+import com.c1ph3r.c1ph3rbank.model.UserDataBase;
 import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -26,6 +28,9 @@ public class UserRegistration {
     SQLiteDatabase userDBRead;
     Cursor cursor;
     UserDataBaseHelper userDataBaseHelper;
+    String[] tableNames = {"accountNumber","userName", "pin", "accountType", "expiryDate", "balance"};
+
+
 
     public UserRegistration(NewUserRegisterPage newUserRegisterPage) {
         try {
@@ -44,26 +49,22 @@ public class UserRegistration {
         }
 
         userDataBaseHelper = new UserDataBaseHelper(newUser);
-        userDBWrite = userDataBaseHelper.getWritableDatabase();
         userDBRead = userDataBaseHelper.getReadableDatabase();
         contentValues = new ContentValues();
-        String[] tableNames = {"accountNumber","userName", "pin", "accountType", "expiryDate", "balance"};
-        cursor = userDBRead.query("userDetails", tableNames,null,null,null,null,null);
-
+        cursor = userDBRead.query("userDetails", tableNames, null,null,null,null,null);
     }
 
-    public UserRegistration(){
-
-    }
 
 
     public void userDataVerification(){
         boolean isUserNameOK = false, isPinOk = false, isAccountNoOk = false, isAccountTypeOK = false;
+        cursor.moveToFirst();
         if(!userName.isEmpty()){
             while(cursor.moveToNext()){
                 if(userName.equals(cursor.getString(1))){
                     String error = "UserName Already Exists!";
                     errorDisplay(userNameLayout, error);
+                    System.out.println("hello there verified");
                     break;
                 }else{
                     contentValues.put("userName", userName);
@@ -84,7 +85,8 @@ public class UserRegistration {
             else errorDisplay(pinLayout, error);
         }
         if(accountNo.length() == 8){
-            while(cursor.moveToPrevious()){
+            cursor.moveToFirst();
+            while(cursor.moveToNext()){
                 if(accountNo.equals(cursor.getString(0))){
                     String error = "Account NO already exists";
                     errorDisplay(accountNoLayout, error);
@@ -106,6 +108,8 @@ public class UserRegistration {
         }catch(Exception e){
             Toast.makeText(newUser, "Choose Account Type.", Toast.LENGTH_SHORT).show();
         }
+
+        System.out.println(isAccountNoOk+" "+isUserNameOK+" "+isAccountTypeOK+" "+isPinOk + " ");
         if(isUserNameOK&&isPinOk&&isAccountNoOk&&isAccountTypeOK){
             int [] bal = {12000, 10000, 5000, 1000, 20000};
             Random random = new Random();
@@ -115,12 +119,13 @@ public class UserRegistration {
             contentValues.put("balance", bal[random.nextInt(bal.length-1)]);
             userDBWrite = userDataBaseHelper.getWritableDatabase();
             long inserted = userDBWrite.insert("userDetails",null, contentValues);
+
             if(inserted>0){
                 Toast.makeText(newUser, "Account Created.", Toast.LENGTH_SHORT).show();
                         newUser.finish();
-            }else
-                Toast.makeText(newUser, "Failed TryAgain!", Toast.LENGTH_SHORT).show();
-        }
+            }
+        }else
+            Toast.makeText(newUser, "Failed TryAgain!", Toast.LENGTH_SHORT).show();
     }
 
 

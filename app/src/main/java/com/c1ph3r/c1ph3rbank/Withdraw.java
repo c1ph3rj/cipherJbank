@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import com.c1ph3r.c1ph3rbank.controller.UserDetail;
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -23,6 +24,7 @@ public class Withdraw extends AppCompatActivity {
     MaterialButton withdrawButton;
     TextInputLayout amountFieldLayout;
     TextInputEditText amountField;
+    UserDetail userDetail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +34,7 @@ public class Withdraw extends AppCompatActivity {
         userData = (UserDataBase) intent.getSerializableExtra("value");
         amountField = findViewById(R.id.AmountField);
         amountFieldLayout = findViewById(R.id.AmountFieldLayout);
+        userDetail = new UserDetail(this);
     }
 
     public void error(){
@@ -60,8 +63,9 @@ public class Withdraw extends AppCompatActivity {
         builder.setPositiveButton("Confirm", (DialogInterface.OnClickListener) (dialog, which) -> {
                 userData.setBalance(userData.getBalance() - Integer.parseInt(String.valueOf(amountField.getText())));
                 System.out.println(userData.getBalance());
-            getSupportFragmentManager().beginTransaction().replace(R.id.withdrawLayout, new ConfirmationForPayment(userData)).commit();
-
+                userDetail.updateUserData(0, userData.getBalance());
+                Intent intent = new Intent(this,DashBoard.class);
+                startActivity(intent);
         });
         builder.setNegativeButton("Cancel", (DialogInterface.OnClickListener) (dialog, which) -> {
         });
