@@ -18,7 +18,6 @@ import java.util.Random;
 
 public class UserRegistration {
 
-    private ArrayList<String> users;
     private NewUserRegisterPage newUser = null;
     String userName, pin, reEnteredPin, accountNo, accountType, expiryDate;
     TextInputLayout userNameLayout, pinLayout, reEnteredPinLayout, accountNoLayout;
@@ -48,7 +47,7 @@ public class UserRegistration {
         userDBWrite = userDataBaseHelper.getWritableDatabase();
         userDBRead = userDataBaseHelper.getReadableDatabase();
         contentValues = new ContentValues();
-        String[] tableNames = {"accountNumber","userName", "pin", "accountType", "expiryDate"};
+        String[] tableNames = {"accountNumber","userName", "pin", "accountType", "expiryDate", "balance"};
         cursor = userDBRead.query("userDetails", tableNames,null,null,null,null,null);
 
     }
@@ -107,12 +106,13 @@ public class UserRegistration {
         }catch(Exception e){
             Toast.makeText(newUser, "Choose Account Type.", Toast.LENGTH_SHORT).show();
         }
-        System.out.println("\n\n\n\n\n\n" + userName + accountNo + accountType + pin + accountNo.length() + "\n "+isAccountNoOk + isPinOk + isAccountTypeOK + isUserNameOK );
         if(isUserNameOK&&isPinOk&&isAccountNoOk&&isAccountTypeOK){
+            int [] bal = {12000, 10000, 5000, 1000, 20000};
             Random random = new Random();
             int month = random.nextInt(12);
             expiryDate = month + "/" + ((month<=4)?28:(month<=8)?35:38);
             contentValues.put("expiryDate", expiryDate);
+            contentValues.put("balance", bal[random.nextInt(bal.length-1)]);
             userDBWrite = userDataBaseHelper.getWritableDatabase();
             long inserted = userDBWrite.insert("userDetails",null, contentValues);
             if(inserted>0){
