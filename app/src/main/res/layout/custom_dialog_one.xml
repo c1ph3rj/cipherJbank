@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="340dp"
+    android:layout_width="320dp"
     android:layout_height="450dp"
     android:layout_gravity="center"
-    android:background="@color/white"
+    android:background="@drawable/user_login_layout_background"
     tools:ignore="MissingDefaultResource">
 
 
@@ -26,8 +26,10 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Amount Debited \nSuccessFully."
+        android:text="@string/amount_debited_nsuccessfully"
         android:textSize="30sp"
+        android:textColor="@color/Indigo"
+        android:fontFamily="@font/fig_tree_semi_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
@@ -36,11 +38,13 @@
         app:layout_constraintVertical_bias="0.107" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/backBtn"
+        android:id="@+id/backBtnWithdraw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onClickBackBtn"
         android:text="@string/back_btn_confirm_pay"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/Blue"
+        app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.519"

@@ -3,11 +3,13 @@ package com.c1ph3r.c1ph3rbank;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
 import com.google.android.material.button.MaterialButton;
@@ -19,6 +21,7 @@ public class Deposit extends AppCompatActivity {
     MaterialButton depositButton;
     TextInputLayout amountFieldLayout;
     TextInputEditText amountField;
+    Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +31,20 @@ public class Deposit extends AppCompatActivity {
         userData = (UserDataBase) intent.getSerializableExtra("value");
         amountField = findViewById(R.id.AmountFieldDeposit);
         amountFieldLayout = findViewById(R.id.AmountFieldLayoutDeposit);
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.fragment_confirmation_for_deposit);
+        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.gradient1));
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+        dialog.setCancelable(false);
+        MaterialButton backBtnDeposit = dialog.findViewById(R.id.backBtnDeposit);
+        backBtnDeposit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Deposit.this,DashBoard.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     public void OnClickVerifyDepositPay(View view) {
@@ -62,14 +79,13 @@ public class Deposit extends AppCompatActivity {
 
     public void amountConfirmation(){
         AlertDialog.Builder builder = new AlertDialog.Builder(Deposit.this);
-
         builder.setMessage("Do you want to Deposit the Amount ?");
         builder.setTitle("Alert !");
         builder.setCancelable(true);
         builder.setPositiveButton("Confirm", (DialogInterface.OnClickListener) (dialog, which) -> {
             userData.setBalance(userData.getBalance() + Integer.parseInt(String.valueOf(amountField.getText())));
             System.out.println(userData.getBalance());
-            getSupportFragmentManager().beginTransaction().replace(R.id.DepositLayout, new ConfirmationForDeposit(userData)).commit();
+            this.dialog.show();
         });
         builder.setNegativeButton("Cancel", (DialogInterface.OnClickListener) (dialog, which) -> {
         });

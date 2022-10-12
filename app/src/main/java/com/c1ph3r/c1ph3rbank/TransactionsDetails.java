@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 public class TransactionsDetails extends AppCompatActivity {
 
@@ -14,6 +15,12 @@ public class TransactionsDetails extends AppCompatActivity {
     }
 
     public void onBackPressed(){
+        Intent intent = new Intent(this, DashBoard.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void onClickBackOnTransaction(View view) {
         Intent intent = new Intent(this, DashBoard.class);
         startActivity(intent);
         finish();

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
@@ -27,16 +29,32 @@ public class Withdraw extends AppCompatActivity {
     TextInputLayout amountFieldLayout;
     TextInputEditText amountField;
     UserDetail userDetail;
+    Dialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_withdraw);
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.custom_dialog_one);
+        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.gradient1));
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+        dialog.setCancelable(false);
+        MaterialButton backBtnWithdraw = dialog.findViewById(R.id.backBtnWithdraw);
         Intent intent = getIntent();
         withdrawButton = findViewById(R.id.withdrawButton);
         userData = (UserDataBase) intent.getSerializableExtra("value");
         amountField = findViewById(R.id.AmountField);
         amountFieldLayout = findViewById(R.id.AmountFieldLayout);
         userDetail = new UserDetail(this);
+        backBtnWithdraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Withdraw.this,DashBoard.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     public void error(){
@@ -68,8 +86,7 @@ public class Withdraw extends AppCompatActivity {
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
             int value = sharedPreferences.getInt("value",0);
                 userDetail.updateUserData(value, userData.getBalance());
-                Intent intent = new Intent(this,DashBoard.class);
-                startActivity(intent);
+                this.dialog.show();
         });
         builder.setNegativeButton("Cancel", (DialogInterface.OnClickListener) (dialog, which) -> {
         });

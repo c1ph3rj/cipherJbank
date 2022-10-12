@@ -47,4 +47,8 @@
     <string name="cancelDeposit">Cancel</string>
     <string name="confirmDeposit">Confirm</string>
     <string name="enter_amount_deposit">Enter Amount</string>
+    <string name="back_on_transaction">Back</string>
+    <string name="amount_debited_nsuccessfully">Amount Debited \nSuccessFully.</string>
+    <string name="amount_deposited_nsuccessfully">Amount Deposited \nSuccessFully.</string>
+    <string name="back">Back</string>
 </resources>
