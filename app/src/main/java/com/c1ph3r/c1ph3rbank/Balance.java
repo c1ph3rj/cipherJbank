@@ -2,6 +2,7 @@ package com.c1ph3r.c1ph3rbank;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ public class Balance extends AppCompatActivity {
     TextView displayBalance;
     MaterialButton backBtnBalance;
     private UserDataBase userData;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,9 +30,15 @@ public class Balance extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Balance.this, DashBoard.class);
-                intent.putExtra("value", userData);
                 startActivity(intent);
+                finish();
             }
         });
+
+    }
+    public void onBackPressed(){
+        Intent intent = new Intent(Balance.this, DashBoard.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -14,12 +14,14 @@ import android.widget.TextView;
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
 import com.google.android.material.button.MaterialButton;
 
+import java.util.Objects;
+
 
 public class DashboardLayout extends Fragment {
     UserDataBase userData;
     TextView greetTheUser, ATM_UserName, ATM_AccountNo, ATM_ExpiryDate;
     View view;
-    MaterialButton sendMoney, balance, deposit;
+    MaterialButton sendMoney, balance, deposit, Transactions;
     public DashboardLayout(){
 
     }
@@ -56,6 +58,7 @@ public class DashboardLayout extends Fragment {
             ATM_UserName.setText( userData.getName());
             ATM_AccountNo.setText(String.valueOf( userData.getAccountNo()));
             ATM_ExpiryDate.setText( userData.getExpiryDate());
+            Transactions = view.findViewById(R.id.transactionBtn);
 
             sendMoney.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,13 +84,18 @@ public class DashboardLayout extends Fragment {
                     Intent intent = new Intent(getActivity(), Deposit.class);
                     intent.putExtra("value", userData);
                     startActivity(intent);
-                    getActivity().finish();
+                    requireActivity().finish();
+                }
+            });
+
+            Transactions.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent (getActivity(), TransactionsDetails.class);
+                    startActivity(intent);
+                    requireActivity().finish();
                 }
             });
         }
-
     }
-
-
-
 }

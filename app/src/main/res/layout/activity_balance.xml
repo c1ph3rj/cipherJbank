@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/gradient1"
     tools:context=".Balance">
 
     <LinearLayout
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="400dp"
         android:orientation="vertical"
         android:gravity="center"
+        android:background="@drawable/user_login_layout_background"
         android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,23 +25,32 @@
             android:id="@+id/Balance_Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="top"
             android:padding="20dp"
+            android:fontFamily="@font/fig_tree_semi_bold"
+            android:textColor="@color/Indigo"
             android:textSize="23sp"
-            android:text="Your Account Balance is:" />
+            android:text="@string/your_account_balance_is" />
 
         <TextView
             android:id="@+id/displayBalance"
-            android:padding="20dp"
+            android:gravity="center"
             android:textSize="23sp"
+            android:textColor="@color/Indigo"
+            android:fontFamily="@font/alata_regular"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:text="" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/backBtnBalance"
-            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Back" />
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:text="@string/back_on_balance"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/Blue"
+            app:cornerRadius="8dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

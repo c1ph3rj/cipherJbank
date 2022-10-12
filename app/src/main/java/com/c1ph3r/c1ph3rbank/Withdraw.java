@@ -89,4 +89,18 @@ public class Withdraw extends AppCompatActivity {
             error();
         }
     }
+
+    public void onClickCancelPay(View view) {
+        Intent intent = new Intent(this, DashBoard.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void onBackPressed(){
+        Intent intent = new Intent(this, DashBoard.class);
+        startActivity(intent);
+        finish();
+
+    }
+
 }

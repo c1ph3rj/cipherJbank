@@ -25,17 +25,46 @@
 
         <TextView
             android:id="@+id/WithdrawTitle"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:fontFamily="@font/alata_regular"
             android:textColor="@color/Indigo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="To Withdraw:" />
+            android:text="@string/send_money_text" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:textColorHint="@color/Indigo"
+            android:id="@+id/SenderID"
+            app:startIconDrawable="@drawable/user_ic"
+            app:startIconTint="@color/Indigo"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxStrokeColor="@color/Indigo"
+            app:boxStrokeWidth="2dp"
+            app:hintTextColor="@color/Blue">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/SenderIDField"
+            android:textColor="@color/Indigo"
+            android:onClick="onClickAmountField"
+            android:maxLines="1"
+            android:inputType="textPersonName"
+            android:hint="@string/sender_id" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:startIconTint="@color/Indigo"
+            app:startIconDrawable="@drawable/ic_baseline_money_24"
             android:textColorHint="@color/Indigo"
             android:id="@+id/AmountFieldLayout"
             app:boxCornerRadiusBottomEnd="12dp"
@@ -54,18 +83,47 @@
                 android:onClick="onClickAmountField"
                 android:maxLines="1"
                 android:inputType="number"
-                android:hint="Enter Amount" />
+                android:hint="@string/enter_amount_withdraw" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/withdrawButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="260dp"
-            app:cornerRadius="8dp"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/Blue"
-            android:onClick="OnClickVerifyPay"
-            android:text="Button" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/withdrawButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginEnd="16dp"
+                android:onClick="OnClickVerifyPay"
+                android:text="@string/confirm_payment"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/Blue"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/CancelWithdraw"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.915" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/CancelWithdraw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginStart="16dp"
+                android:onClick="onClickCancelPay"
+                android:text="@string/cancel_withdraw"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/Blue"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.92" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

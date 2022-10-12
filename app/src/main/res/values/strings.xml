@@ -36,4 +36,15 @@
     <string name="accountNumberText">AccountNumber</string>
     <string name="submitBtn">Submit</string>
     <string name="back_btn_confirm_pay">Back</string>
+    <string name="send_money_text">Send Money:</string>
+    <string name="sender_id">Enter UserName</string>
+    <string name="enter_amount_withdraw">Enter Amount</string>
+    <string name="confirm_payment">Confirm</string>
+    <string name="cancel_withdraw">Cancel</string>
+    <string name="your_account_balance_is">Your Account Balance is:</string>
+    <string name="back_on_balance">Back</string>
+    <string name="to_add_money">To Add Money:</string>
+    <string name="cancelDeposit">Cancel</string>
+    <string name="confirmDeposit">Confirm</string>
+    <string name="enter_amount_deposit">Enter Amount</string>
 </resources>

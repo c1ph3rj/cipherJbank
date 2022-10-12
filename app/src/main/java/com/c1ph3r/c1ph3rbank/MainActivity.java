@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.c1ph3r.c1ph3rbank.controller.UserDetail;
 import com.c1ph3r.c1ph3rbank.controller.UserVerification;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -56,5 +57,11 @@ public class MainActivity extends AppCompatActivity {
     public void onClickNewUserRegister(View view) {
         Intent intent = new Intent(this, NewUserRegisterPage.class);
         startActivity(intent);
+    }
+    public void onBackPressed(){
+        MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(this);
+        alertDialogBuilder.setTitle("UserDetails").setMessage("Do you Want to exit?").setPositiveButton("Back", (dialogInterface, i1) -> {}).setNegativeButton("Exit", (dialogInterface, i1) -> {
+            finishAffinity();
+        }).show();
     }
 }

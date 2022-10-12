@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import com.c1ph3r.c1ph3rbank.controller.UserDetail;
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class DashBoard extends AppCompatActivity {
@@ -55,5 +56,12 @@ public class DashBoard extends AppCompatActivity {
                 return true;
             }
         });
+
+    }
+    public void onBackPressed(){
+        MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(this);
+        alertDialogBuilder.setTitle("Quit").setMessage("Do you Want to exit?").setPositiveButton("Back", (dialogInterface, i1) -> {}).setNegativeButton("Exit", (dialogInterface, i1) -> {
+            finishAffinity();
+        }).show();
     }
 }

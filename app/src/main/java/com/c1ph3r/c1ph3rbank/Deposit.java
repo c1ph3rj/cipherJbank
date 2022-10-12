@@ -76,4 +76,16 @@ public class Deposit extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
+    public void OnClickCancelVerifyDepositPay(View view){
+        Intent intent = new Intent(this, DashBoard.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void onBackPressed(){
+        Intent intent = new Intent(this, DashBoard.class);
+        startActivity(intent);
+        finish();
+    }
 }

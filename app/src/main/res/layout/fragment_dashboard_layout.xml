@@ -240,6 +240,7 @@
             android:layout_gravity="center"
             android:drawableLeft="@drawable/transactions_ic"
             android:padding="8dp"
+            android:onClick="onClickTransactionBtn"
             android:text="@string/show_transactions_text"
             android:textColor="@color/white"
             app:backgroundTint="@color/Blue"
