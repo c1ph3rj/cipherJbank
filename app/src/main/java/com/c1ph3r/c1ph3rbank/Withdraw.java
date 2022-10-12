@@ -4,8 +4,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
@@ -63,7 +65,9 @@ public class Withdraw extends AppCompatActivity {
         builder.setPositiveButton("Confirm", (DialogInterface.OnClickListener) (dialog, which) -> {
                 userData.setBalance(userData.getBalance() - Integer.parseInt(String.valueOf(amountField.getText())));
                 System.out.println(userData.getBalance());
-                userDetail.updateUserData(0, userData.getBalance());
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
+            int value = sharedPreferences.getInt("value",0);
+                userDetail.updateUserData(value, userData.getBalance());
                 Intent intent = new Intent(this,DashBoard.class);
                 startActivity(intent);
         });

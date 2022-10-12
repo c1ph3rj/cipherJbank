@@ -43,9 +43,9 @@ public class UserVerification {
                 if (String.valueOf(pin.getText()).equals(String.valueOf(userDataBase.get(i).getPin()))) {
                     Intent intent = new Intent(mainActivity, DashBoard.class);
                     userData = mainActivity.userDetail.userDataBase.get(i);
-                    SharedPreferences sharedPreferences = mainActivity.getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = mainActivity.getSharedPreferences("IndexValue",Context.MODE_PRIVATE);
                     SharedPreferences.Editor editValues = sharedPreferences.edit();
-                    editValues.putInt("value",i);
+                    editValues.putInt("value",userDataBase.indexOf(userDataBase.get(i)));
                     editValues.apply();
                     intent.putExtra("value", userData);
                     mainActivity.startActivity(intent);

@@ -31,9 +31,8 @@ public class DashBoard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
         UserDetail userDetail = new UserDetail(DashBoard.this);
-        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences =getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
         int value = sharedPreferences.getInt("value", 0);
-        System.out.println("QWERTy"+value);
         userData = userDetail.getUserData(value);
 
         BottomNavigationView bottomNavigation = findViewById(R.id.BottomNav);
