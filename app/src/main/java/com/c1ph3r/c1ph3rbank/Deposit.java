@@ -4,13 +4,16 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.c1ph3r.c1ph3rbank.controller.UserDetail;
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -18,6 +21,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class Deposit extends AppCompatActivity {
     public UserDataBase userData;
+    UserDetail userDetail;
     MaterialButton depositButton;
     TextInputLayout amountFieldLayout;
     TextInputEditText amountField;
@@ -36,6 +40,7 @@ public class Deposit extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.gradient1));
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.setCancelable(false);
+        userDetail = new UserDetail(this);
         MaterialButton backBtnDeposit = dialog.findViewById(R.id.backBtnDeposit);
         backBtnDeposit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +90,9 @@ public class Deposit extends AppCompatActivity {
         builder.setPositiveButton("Confirm", (DialogInterface.OnClickListener) (dialog, which) -> {
             userData.setBalance(userData.getBalance() + Integer.parseInt(String.valueOf(amountField.getText())));
             System.out.println(userData.getBalance());
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
+            int value = sharedPreferences.getInt("value",0);
+            userDetail.updateUserData(value, userData.getBalance());
             this.dialog.show();
         });
         builder.setNegativeButton("Cancel", (DialogInterface.OnClickListener) (dialog, which) -> {

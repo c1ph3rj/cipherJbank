@@ -19,6 +19,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 
 public class UserVerification {
+    UserDetail userDetail;
     private MainActivity mainActivity;
     UserDataBase userData;
     TextInputEditText userName, pin;
@@ -31,12 +32,13 @@ public class UserVerification {
         this.pin = pin;
         this.pinLayout = pinLayout;
         this.userNameLayout = userNameLayout;
-        UserDetail userDetail = new UserDetail(mainActivity);
+        userDetail = new UserDetail(mainActivity);
         this.userDataBase = userDetail.userDataBase;
     }
 
 
     public void verifyTheUser() {
+        userDetail = new UserDetail(mainActivity);
         boolean userVerified = false;
         for (int i = 0; i < userDataBase.size(); i++) {
             if (String.valueOf(userName.getText()).equals(userDataBase.get(i).getName())) {
