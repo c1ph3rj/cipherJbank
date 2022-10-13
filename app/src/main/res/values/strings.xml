@@ -60,5 +60,7 @@
     <string name="IfAccountTypeIsEmpty">Choose your Account Type.</string>
     <string name="IfRegistrationFailed">Failed To Register.</string>
     <string name="IfRegistrationSuccess">Registered SuccessFully</string>
+    <string name="userNameAlreadyExists">UserName Already Exists</string>
+    <string name="AccountNumberAlreadyExists">Account Number Already Exist</string>
 
 </resources>

@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 
 import com.c1ph3r.c1ph3rbank.controller.UserDetail;
 import com.c1ph3r.c1ph3rbank.controller.UserVerification;
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
+import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -63,7 +67,13 @@ public class MainActivity extends AppCompatActivity {
         userDetail = new UserDetail();
         userDetail.getUserDataBase(this);
         ArrayList<UserDataBase> userDataBase = userDetail.userDataBase;
-       userVerification.verifyTheUser(userDataBase);
+        userVerification.verifyTheUser(userDataBase);
+        // dummy part
+        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(MainActivity.this);
+        SQLiteDatabase userDB = userDataBaseHelper.getReadableDatabase();
+        userVerification.verifyTheUser(userDB, userName, pin);
+        //dummy part
+
 
     }
 

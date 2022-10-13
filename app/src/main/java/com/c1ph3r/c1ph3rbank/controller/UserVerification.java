@@ -7,12 +7,12 @@ import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
+import android.widget.Toast;
 
 import com.c1ph3r.c1ph3rbank.DashBoard;
 import com.c1ph3r.c1ph3rbank.MainActivity;
 import com.c1ph3r.c1ph3rbank.R;
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
-import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -32,6 +32,43 @@ public class UserVerification {
         this.userNameLayout = userNameLayout;
     }
 
+    /// DUMMY PART
+
+    public void verifyTheUser( SQLiteDatabase userDB, TextInputEditText userName, TextInputEditText pin) {
+        Cursor matchUserName = userDB.rawQuery("SELECT userName FROM userDetails WHERE userName Like ?",new String[]{"jeeva%"} );
+        String [] tables = {"accountNumber","userName", "pin", "accountType", "expiryDate", "balance"};
+        Cursor dummy = userDB.rawQuery("SELECT userName FROM userDetails WHERE userName =?",new String[]{"jeevaprakash"});
+        matchUserName.moveToFirst();
+        System.out.println(matchUserName.getCount());
+        for(int i = 0;i<matchUserName.getCount();i++){
+            System.out.println(matchUserName.getString(0));
+            matchUserName.moveToNext();
+        }
+        dummy.close();
+        matchUserName.close();
+
+    }
+
+    ///DUMMY PART
+
+    public void changeColorOfInputs() {
+        pin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                pinLayout.setErrorEnabled(false);
+                pinLayout.setHintTextColor(ColorStateList.valueOf(mainActivity.getColor(R.color.Indigo)));
+                pinLayout.setBoxStrokeColor(mainActivity.getColor(R.color.Indigo));
+            }
+        });
+        userName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                userNameLayout.setErrorEnabled(false);
+                userNameLayout.setHintTextColor(ColorStateList.valueOf(mainActivity.getColor(R.color.Indigo)));
+                userNameLayout.setBoxStrokeColor(mainActivity.getColor(R.color.Indigo));
+            }
+        });
+    }
 
     public void verifyTheUser(ArrayList<UserDataBase> userDataBase) {
         boolean userVerified = false;
@@ -40,7 +77,7 @@ public class UserVerification {
                 if (String.valueOf(pin.getText()).equals(String.valueOf(userDataBase.get(i).getPin()))) {
                     Intent intent = new Intent(mainActivity, DashBoard.class);
                     userData = userDataBase.get(i);
-                    SharedPreferences sharedPreferences = mainActivity.getSharedPreferences("IndexValue",Context.MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = mainActivity.getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editValues = sharedPreferences.edit();
                     editValues.putInt("value",userDataBase.indexOf(userDataBase.get(i)));
                     editValues.apply();
@@ -64,25 +101,6 @@ public class UserVerification {
             userNameLayout.setHintTextColor(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
             userNameLayout.setErrorIconTintList(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
         }
-    }
 
-    public void changeColorOfInputs() {
-        pin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                pinLayout.setErrorEnabled(false);
-                pinLayout.setHintTextColor(ColorStateList.valueOf(mainActivity.getColor(R.color.Indigo)));
-                pinLayout.setBoxStrokeColor(mainActivity.getColor(R.color.Indigo));
-            }
-        });
-        userName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                userNameLayout.setErrorEnabled(false);
-                userNameLayout.setHintTextColor(ColorStateList.valueOf(mainActivity.getColor(R.color.Indigo)));
-                userNameLayout.setBoxStrokeColor(mainActivity.getColor(R.color.Indigo));
-            }
-        });
     }
-
 }
