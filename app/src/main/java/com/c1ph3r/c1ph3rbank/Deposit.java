@@ -3,22 +3,30 @@ package com.c1ph3r.c1ph3rbank;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.c1ph3r.c1ph3rbank.controller.UserDetail;
+import com.c1ph3r.c1ph3rbank.model.TransactionHelper;
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
 import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Deposit extends AppCompatActivity {
     public UserDataBase userData;
@@ -94,11 +102,7 @@ public class Deposit extends AppCompatActivity {
         builder.setTitle(R.string.Alert);
         builder.setCancelable(true);
         builder.setPositiveButton(R.string.Confirm, (DialogInterface.OnClickListener) (dialog, which) -> {
-            userData.setBalance(userData.getBalance() + Integer.parseInt(String.valueOf(amountField.getText())));
-            System.out.println(userData.getBalance());
-            UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
-            userDetail.updateUserData(value, userData.getBalance(),userDataBaseHelper, userData.isLoggedIn() );
-            this.dialog.show();
+            depositAmount();
         });
         builder.setNegativeButton(R.string.Cancel, (DialogInterface.OnClickListener) (dialog, which) -> {
         });
@@ -116,5 +120,23 @@ public class Deposit extends AppCompatActivity {
         Intent intent = new Intent(this, DashBoard.class);
         startActivity(intent);
         finish();
+    }
+
+    void depositAmount(){
+        userData.setBalance(userData.getBalance() + Integer.parseInt(String.valueOf(amountField.getText())));
+        System.out.println(userData.getBalance());
+        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
+        userDetail.updateUserData(value, userData.getBalance(),userDataBaseHelper, userData.isLoggedIn() );
+        TransactionHelper transactionHelper = new TransactionHelper(this, (userData.getName() + "Transactions"));
+        SQLiteDatabase transactions = transactionHelper.getWritableDatabase();
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        System.out.println(dateFormat.format(date));
+        ContentValues creditedValues = new ContentValues();
+        String Transactions = "To: C1ph3RBank   Amount: " + amountField.getText() + "\nOn:" + dateFormat.format(date);
+        creditedValues.put("transactions",Transactions);
+        long value = transactions.insert("credit",null,creditedValues);
+        System.out.println("\n\n\n\n\n\n " + value);
+        this.dialog.show();
     }
 }

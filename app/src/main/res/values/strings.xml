@@ -68,5 +68,8 @@
     <string name="Cancel">Cancel</string>
     <string name="ErrorAmountInvalid">Invalid Amount</string>
     <string name="ErrorInvalidPin">Invalid Pin</string>
+    <string name="settings_headding">Settings</string>
+    <string name="change_pin_text">Change Pin</string>
+    <string name="logout_text">Logout</string>
 
 </resources>

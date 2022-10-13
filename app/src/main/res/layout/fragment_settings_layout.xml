@@ -3,17 +3,74 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/gradient1"
     android:layout_height="match_parent"
     tools:context=".SettingsLayout">
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="320dp"
+        android:layout_height="400dp"
+        android:orientation="horizontal"
+        android:background="@drawable/user_login_layout_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.545">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ChangePin"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="28dp"
+            android:drawableTop="@drawable/password_change_ic"
+            android:elevation="4dp"
+            android:padding="8dp"
+            android:text="@string/change_pin_text"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/Blue"
+            app:cornerRadius="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/Logout"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.057" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/Logout"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginEnd="120dp"
+            android:drawableTop="@drawable/logout_ic"
+            android:elevation="4dp"
+            android:padding="8dp"
+            android:text="@string/logout_text"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/Blue"
+            app:cornerRadius="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.057" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings\nlayout"
+        android:fontFamily="@font/fig_tree_bold"
+        android:text="@string/settings_headding"
+        android:textColor="@color/Indigo"
+        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.132"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.145" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
