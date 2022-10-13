@@ -29,6 +29,7 @@ import java.util.ArrayList;
     -- Secondary --
     Add is user logged in feature
     Add change pin option
+    Clean the ui
     Add logout feature
     Add splash screen effect if possible and utilize the time to verify is user Logged in
 */
