@@ -40,7 +40,8 @@ public class Deposit extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.gradient1));
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.setCancelable(false);
-        userDetail = new UserDetail(this);
+        userDetail = new UserDetail();
+        userDetail.getUserDataBase(this);
         MaterialButton backBtnDeposit = dialog.findViewById(R.id.backBtnDeposit);
         backBtnDeposit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +93,7 @@ public class Deposit extends AppCompatActivity {
             System.out.println(userData.getBalance());
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
             int value = sharedPreferences.getInt("value",0);
-            userDetail.updateUserData(value, userData.getBalance());
+            userDetail.updateUserData(value, userData.getBalance(), Deposit.this);
             this.dialog.show();
         });
         builder.setNegativeButton("Cancel", (DialogInterface.OnClickListener) (dialog, which) -> {

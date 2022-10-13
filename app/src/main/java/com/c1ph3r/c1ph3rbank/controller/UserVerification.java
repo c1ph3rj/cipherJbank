@@ -19,32 +19,27 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 
 public class UserVerification {
-    UserDetail userDetail;
     private MainActivity mainActivity;
     UserDataBase userData;
     TextInputEditText userName, pin;
     TextInputLayout pinLayout, userNameLayout;
-    ArrayList<UserDataBase> userDataBase;
 
-    public UserVerification(MainActivity mainActivity,TextInputEditText userName,TextInputEditText pin,TextInputLayout pinLayout,TextInputLayout userNameLayout ) {
+    public void dataRequiredForVerification(MainActivity mainActivity,TextInputEditText userName,TextInputEditText pin,TextInputLayout pinLayout,TextInputLayout userNameLayout ) {
         this.mainActivity = mainActivity;
         this.userName = userName;
         this.pin = pin;
         this.pinLayout = pinLayout;
         this.userNameLayout = userNameLayout;
-        userDetail = new UserDetail(mainActivity);
-        this.userDataBase = userDetail.userDataBase;
     }
 
 
-    public void verifyTheUser() {
-        userDetail = new UserDetail(mainActivity);
+    public void verifyTheUser(ArrayList<UserDataBase> userDataBase) {
         boolean userVerified = false;
         for (int i = 0; i < userDataBase.size(); i++) {
             if (String.valueOf(userName.getText()).equals(userDataBase.get(i).getName())) {
                 if (String.valueOf(pin.getText()).equals(String.valueOf(userDataBase.get(i).getPin()))) {
                     Intent intent = new Intent(mainActivity, DashBoard.class);
-                    userData = mainActivity.userDetail.userDataBase.get(i);
+                    userData = userDataBase.get(i);
                     SharedPreferences sharedPreferences = mainActivity.getSharedPreferences("IndexValue",Context.MODE_PRIVATE);
                     SharedPreferences.Editor editValues = sharedPreferences.edit();
                     editValues.putInt("value",userDataBase.indexOf(userDataBase.get(i)));

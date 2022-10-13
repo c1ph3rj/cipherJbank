@@ -19,21 +19,33 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class UserRegistration {
-
+    Random random;
     private NewUserRegisterPage newUser = null;
-    String userName, pin, reEnteredPin, accountNo, accountType, expiryDate;
+
+    int getBalance() {
+        int [] bal = {12000, 10000, 5000, 1000, 20000};
+        random = new Random();
+        return  bal[random.nextInt(bal.length - 1)];
+    }
+
+    String getExpiryDate() {
+        int month = random.nextInt(12);
+        return month + "/" + ((month<=4)?28:(month<=8)?35:38);
+    }
+
+    public String userName, pin, reEnteredPin, accountNo, accountType, expiryDate, balance;
     TextInputLayout userNameLayout, pinLayout, reEnteredPinLayout, accountNoLayout;
-    ContentValues contentValues;
-    SQLiteDatabase userDBWrite;
-    SQLiteDatabase userDBRead;
-    Cursor cursor;
     UserDataBaseHelper userDataBaseHelper;
-    String[] tableNames = {"accountNumber","userName", "pin", "accountType", "expiryDate", "balance"};
 
 
 
-    public UserRegistration(NewUserRegisterPage newUserRegisterPage) {
+    public UserRegistration() {
+
+    }
+
+    public void userRegistrationInit(NewUserRegisterPage newUserRegisterPage){
         try {
+            userDataBaseHelper = new UserDataBaseHelper(newUser);
             this.newUser = newUserRegisterPage;
             userNameLayout = newUser.findViewById(R.id.UserNameLayoutR);
             pinLayout = newUser.findViewById(R.id.PinLayoutR);
@@ -43,89 +55,45 @@ public class UserRegistration {
             accountNo = String.valueOf(newUser.newAccountNumber.getText());
             pin = String.valueOf(newUser.newPin.getText());
             reEnteredPin = String.valueOf(newUser.reEnterPin.getText());
-            accountType = String.valueOf(((RadioButton)newUser.findViewById(newUser.newAccountType.getCheckedRadioButtonId())).getText());
+            accountType = newUser.accountType;
         }catch(Exception e){
-            System.out.println("\n\n\n\n\n " + e.getMessage()  + "\n\n\n\n\n");
+            System.out.println("\n\n\n\n\n " + e.getMessage()  +" || Error In Init " + "\n\n\n\n\n");
         }
-
-        userDataBaseHelper = new UserDataBaseHelper(newUser);
-        userDBRead = userDataBaseHelper.getReadableDatabase();
-        contentValues = new ContentValues();
-        cursor = userDBRead.query("userDetails", tableNames, null,null,null,null,null);
     }
 
 
 
     public void userDataVerification(){
-        boolean isUserNameOK = false, isPinOk = false, isAccountNoOk = false, isAccountTypeOK = false;
-        cursor.moveToFirst();
-        if(!userName.isEmpty()){
-            while(cursor.moveToNext()){
-                if(userName.equals(cursor.getString(1))){
-                    String error = "UserName Already Exists!";
-                    errorDisplay(userNameLayout, error);
-                    System.out.println("hello there verified");
-                    break;
-                }else{
-                    contentValues.put("userName", userName);
-                    isUserNameOK = true;
-                }
-            }
-        }else{
-            String error ="Enter a UserName.";
-            errorDisplay(userNameLayout, error);
-        }
-        if(!pin.isEmpty()&&!reEnteredPin.isEmpty()&&pin.equals(reEnteredPin)){
-            contentValues.put("pin", pin);
-            isPinOk = true;
-        }else{
-            String error = pin.isEmpty() ?"Enter a Pin.": reEnteredPin.isEmpty() ?"Enter Confirm Pin.": "Pin Does not match.";
-            if(reEnteredPin.isEmpty()&&!pin.isEmpty())
-                errorDisplay(reEnteredPinLayout, error);
-            else errorDisplay(pinLayout, error);
-        }
-        if(accountNo.length() == 8){
-            cursor.moveToFirst();
-            while(cursor.moveToNext()){
-                if(accountNo.equals(cursor.getString(0))){
-                    String error = "Account NO already exists";
-                    errorDisplay(accountNoLayout, error);
-                    break;
-                }else{
-                    contentValues.put("accountNumber", accountNo);
-                    isAccountNoOk = true;
-                }
-            }
-        }else{
-            String error ="Account Number invalid.";
-            errorDisplay(accountNoLayout, error);
-        }
-        try{
-            if(!accountType.isEmpty()){
-                contentValues.put("accountType", accountType);
-                isAccountTypeOK = true;
-            }
-        }catch(Exception e){
-            Toast.makeText(newUser, "Choose Account Type.", Toast.LENGTH_SHORT).show();
-        }
+//       try{
+           if(!userName.isEmpty()){
+               if(!pin.isEmpty()){
+                   if(!reEnteredPin.isEmpty()){
+                       if(!accountNo.isEmpty()){
+                           if(!accountType.isEmpty()){
+                               balance = String.valueOf(getBalance());
+                               expiryDate = getExpiryDate();
+                               System.out.println("here1");
+                               boolean result = userDataBaseHelper.addUserToUserDetails(UserRegistration.this, newUser);
+                               System.out.println("here2");
+                               if(!result)
+                                   Toast.makeText(newUser, R.string.IfRegistrationFailed, Toast.LENGTH_SHORT).show();
+                               else
+                                   Toast.makeText(newUser, newUser.getString(R.string.IfRegistrationSuccess), Toast.LENGTH_SHORT).show();
+                           }else{
+                               Toast.makeText(newUser,newUser.getString(R.string.IfAccountTypeIsEmpty),Toast.LENGTH_SHORT ).show();
+                           }
+                       }else
+                           errorDisplay(accountNoLayout, newUser.getString(R.string.IfAccountNoIsEmpty));
+                   }else
+                       errorDisplay(reEnteredPinLayout, newUser.getString(R.string.IfReEnterPinIsEmpty));
+               }else
+                   errorDisplay(pinLayout, newUser.getString(R.string.IfPinIsEmpty));
+           }else
+               errorDisplay(userNameLayout, newUser.getString(R.string.IfUserNameIsEmpty));
+//       }catch(Exception e){
+//           System.out.println(e);
+//       }
 
-        System.out.println(isAccountNoOk+" "+isUserNameOK+" "+isAccountTypeOK+" "+isPinOk + " ");
-        if(isUserNameOK&&isPinOk&&isAccountNoOk&&isAccountTypeOK){
-            int [] bal = {12000, 10000, 5000, 1000, 20000};
-            Random random = new Random();
-            int month = random.nextInt(12);
-            expiryDate = month + "/" + ((month<=4)?28:(month<=8)?35:38);
-            contentValues.put("expiryDate", expiryDate);
-            contentValues.put("balance", bal[random.nextInt(bal.length-1)]);
-            userDBWrite = userDataBaseHelper.getWritableDatabase();
-            long inserted = userDBWrite.insert("userDetails",null, contentValues);
-
-            if(inserted>0){
-                Toast.makeText(newUser, "Account Created.", Toast.LENGTH_SHORT).show();
-                        newUser.finish();
-            }
-        }else
-            Toast.makeText(newUser, "Failed TryAgain!", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -152,4 +120,6 @@ public class UserRegistration {
             }
         });
     }
+
+
 }

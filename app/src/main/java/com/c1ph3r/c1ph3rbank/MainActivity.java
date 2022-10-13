@@ -9,9 +9,29 @@ import android.view.View;
 
 import com.c1ph3r.c1ph3rbank.controller.UserDetail;
 import com.c1ph3r.c1ph3rbank.controller.UserVerification;
+import com.c1ph3r.c1ph3rbank.model.UserDataBase;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
+
+
+/*TODO :
+    -- Primary --
+    Verify if the username is available or not
+    Verify userName and password using the SQLite queries
+    Add transactions page
+    Handle errors using try catch
+    Convert strings to string resource file
+    Clean up code finally
+    Add comments
+    -- Secondary --
+    Add is user logged in feature
+    Add change pin option
+    Add logout feature
+    Add splash screen effect if possible and utilize the time to verify is user Logged in
+*/
 
 
 public class MainActivity extends AppCompatActivity {
@@ -29,16 +49,20 @@ public class MainActivity extends AppCompatActivity {
         userNameLayout = findViewById(R.id.UserNameLayout);
         pin = findViewById(R.id.PinField);
 
-        userDetail = new UserDetail(MainActivity.this);
-        userDetail.getUserDataBase();
-        userVerification = new UserVerification(MainActivity.this,userName,pin,pinLayout,userNameLayout);
+        userDetail = new UserDetail();
+        userDetail.getUserDataBase(this);
+        userVerification = new UserVerification();
+        userVerification.dataRequiredForVerification(MainActivity.this,userName,pin,pinLayout,userNameLayout);
         userVerification.changeColorOfInputs();
 
 
     }
 
     public void onClickLoginBtn(View view) {
-       userVerification.verifyTheUser();
+        userDetail = new UserDetail();
+        userDetail.getUserDataBase(this);
+        ArrayList<UserDataBase> userDataBase = userDetail.userDataBase;
+       userVerification.verifyTheUser(userDataBase);
 
     }
 
@@ -65,3 +89,6 @@ public class MainActivity extends AppCompatActivity {
         }).show();
     }
 }
+
+
+

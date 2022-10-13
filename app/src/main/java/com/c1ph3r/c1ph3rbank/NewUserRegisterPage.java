@@ -21,20 +21,27 @@ public class NewUserRegisterPage extends AppCompatActivity {
     public TextInputLayout userNameLayout, pinLayout, reEnteredPinLayout, accountNoLayout;
     UserRegistration userRegistration;
     public RadioGroup newAccountType;
+    public String accountType = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user_register_page);
         newUserName = findViewById(R.id.UserNameFieldR);
         newPin = findViewById(R.id.PinFieldR);
-        userRegistration = new UserRegistration(this);
         newAccountNumber = findViewById(R.id.accountNumberR);
         reEnterPin = findViewById(R.id.ReEnterPinField);
         newAccountType = findViewById(R.id.accountTypeR);
+        newAccountType.setOnCheckedChangeListener((radioGroup, i) -> {
+            RadioButton button = findViewById(newAccountType.getCheckedRadioButtonId());
+            accountType = String.valueOf(button.getText());
+            System.out.println(accountType);
+        });
         userNameLayout = findViewById(R.id.UserNameLayoutR);
         pinLayout = findViewById(R.id.PinLayoutR);
         reEnteredPinLayout = findViewById(R.id.ReEnterPinLayout);
         accountNoLayout = findViewById(R.id.accountNumberLayoutR);
+        userRegistration = new UserRegistration();
+        userRegistration.userRegistrationInit(NewUserRegisterPage.this);
         userRegistration.changeColorOfInputsRegistration(userNameLayout, newUserName);
         userRegistration.changeColorOfInputsRegistration(pinLayout, newPin);
         userRegistration.changeColorOfInputsRegistration(reEnteredPinLayout, reEnterPin);
@@ -42,7 +49,8 @@ public class NewUserRegisterPage extends AppCompatActivity {
     }
 
     public void onClickSubmitBtn(View view) {
-            UserRegistration userRegistration = new UserRegistration(NewUserRegisterPage.this);
+            UserRegistration userRegistration = new UserRegistration();
+            userRegistration.userRegistrationInit(NewUserRegisterPage.this);
             userRegistration.userDataVerification();
     }
 

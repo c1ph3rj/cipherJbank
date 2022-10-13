@@ -46,7 +46,8 @@ public class Withdraw extends AppCompatActivity {
         userData = (UserDataBase) intent.getSerializableExtra("value");
         amountField = findViewById(R.id.AmountField);
         amountFieldLayout = findViewById(R.id.AmountFieldLayout);
-        userDetail = new UserDetail(this);
+        userDetail = new UserDetail();
+        userDetail.getUserDataBase(this);
         backBtnWithdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,7 +86,7 @@ public class Withdraw extends AppCompatActivity {
                 System.out.println(userData.getBalance());
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
             int value = sharedPreferences.getInt("value",0);
-                userDetail.updateUserData(value, userData.getBalance());
+                userDetail.updateUserData(value, userData.getBalance(), Withdraw.this);
                 this.dialog.show();
         });
         builder.setNegativeButton("Cancel", (DialogInterface.OnClickListener) (dialog, which) -> {

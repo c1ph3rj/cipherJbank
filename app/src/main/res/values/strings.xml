@@ -51,4 +51,14 @@
     <string name="amount_debited_nsuccessfully">Amount Debited \nSuccessFully.</string>
     <string name="amount_deposited_nsuccessfully">Amount Deposited \nSuccessFully.</string>
     <string name="back">Back</string>
+
+    //ERROR MESSAGES
+    <string name="IfUserNameIsEmpty">Enter a UserName.</string>
+    <string name="IfPinIsEmpty">Enter a pin.</string>
+    <string name="IfReEnterPinIsEmpty">Enter a ConfirmPin.</string>
+    <string name="IfAccountNoIsEmpty">Enter a AccountNumber.</string>
+    <string name="IfAccountTypeIsEmpty">Choose your Account Type.</string>
+    <string name="IfRegistrationFailed">Failed To Register.</string>
+    <string name="IfRegistrationSuccess">Registered SuccessFully</string>
+
 </resources>

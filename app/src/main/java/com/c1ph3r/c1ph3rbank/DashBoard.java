@@ -31,7 +31,8 @@ public class DashBoard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
-        UserDetail userDetail = new UserDetail(DashBoard.this);
+        UserDetail userDetail = new UserDetail();
+        userDetail.getUserDataBase(DashBoard.this);
         SharedPreferences sharedPreferences =getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
         int value = sharedPreferences.getInt("value", 0);
         userData = userDetail.getUserData(value);

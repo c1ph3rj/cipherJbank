@@ -2,6 +2,7 @@ package com.c1ph3r.c1ph3rbank.controller;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -23,36 +24,36 @@ public class UserDetail {
     UserDataBaseHelper userDataBaseHelper;
 
 
-    public UserDetail(Activity activity) {
+
+    public void getUserDataBase(Activity activity){
         userDataBaseHelper = new UserDataBaseHelper(activity);
         userDBRead = userDataBaseHelper.getReadableDatabase();
         contentValues = new ContentValues();
         String[] tableNames = {"accountNumber","userName", "pin", "accountType", "expiryDate", "balance"};
         cursor = userDBRead.query("userDetails", tableNames,null,null,null,null,null);
-        cursor.moveToFirst();
-        getUserDataBase();
-    }
-
-    public void getUserDataBase(){
-        cursor.moveToFirst();
-        while(cursor.moveToNext()){
-            int accountNo =  Integer.parseInt(cursor.getString(0));
-            String name = cursor.getString(1);
-            int pin = Integer.parseInt(cursor.getString(2));
-            String accountType = cursor.getString(3);
-            String expiryDate = cursor.getString(4);
-            int balance = Integer.parseInt(cursor.getString(5));
-            userDataBase.add(new UserDataBase(name, accountNo, pin, accountType, balance, expiryDate));
+        if(cursor.moveToFirst()) {
+            while (cursor.moveToNext()) {
+                int accountNo = Integer.parseInt(cursor.getString(0));
+                String name = cursor.getString(1);
+                int pin = Integer.parseInt(cursor.getString(2));
+                String accountType = cursor.getString(3);
+                String expiryDate = cursor.getString(4);
+                int balance = Integer.parseInt(cursor.getString(5));
+                userDataBase.add(new UserDataBase(name, accountNo, pin, accountType, balance, expiryDate));
+            }
         }
+        cursor.close();
     }
 
     public UserDataBase getUserData(int i){
-     UserDataBase userData = userDataBase.get(i);
-     return userData;
+     return userDataBase.get(i);
     }
 
-    public void updateUserData(int i, int balance){
+    public void updateUserData(int i, int balance, Activity activity){
+        userDataBaseHelper = new UserDataBaseHelper(activity);
         userDBWrite = userDataBaseHelper.getWritableDatabase();
+        String[] tableNames = {"accountNumber","userName", "pin", "accountType", "expiryDate", "balance"};
+        cursor = userDBRead.query("userDetails", tableNames,null,null,null,null,null);
         UserDataBase userData = userDataBase.get(i);
         cursor.moveToFirst();
         String Name = userDataBase.get(i).getName();
@@ -65,5 +66,6 @@ public class UserDetail {
             }
 
         }
+        cursor.close();
     }
 }
