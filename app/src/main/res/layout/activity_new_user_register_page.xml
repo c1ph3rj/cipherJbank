@@ -47,6 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:hint="@string/userNameFieldHint"
+                android:maxLength="28"
                 android:textColor="@color/Indigo"
                 android:textSize="18sp" />
 
@@ -175,6 +176,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:maxLength="8"
+                android:inputType="number"
                 android:hint="@string/accountNumberText"
                 android:textColor="@color/Indigo"
                 android:textSize="18sp" />

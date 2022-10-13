@@ -13,9 +13,12 @@ public class UserDataBase implements Serializable {
     //Setting these values as private so it cannot be accessed outside the class.
     private int pin;
     private int balance;
+
+
     private  int accountNo;
     private  String accountType;
     private   String name;
+    private boolean isLoggedIn;
 
 
     public String getExpiryDate() {
@@ -24,13 +27,14 @@ public class UserDataBase implements Serializable {
 
     private String expiryDate;
     //Creating the constructor for getting the input from the user.
-    public UserDataBase(String name, int accountNo, int pin, String accountType, int balance, String expiryDate) {
+    public UserDataBase(String name, int accountNo, int pin, String accountType, int balance, String expiryDate, boolean loggedIn) {
         //setting the constructor values to the default values of the class.
         this.pin = pin;
         this.balance = balance;
         this.accountNo = accountNo;
         this.accountType = accountType;
         this.name = name;
+        this.isLoggedIn = loggedIn;
         this.expiryDate = expiryDate;
     }
 
@@ -60,5 +64,13 @@ public class UserDataBase implements Serializable {
 
     public int getAccountNo() {
         return accountNo;
+    }
+
+    public boolean isLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.isLoggedIn = loggedIn;
     }
 }

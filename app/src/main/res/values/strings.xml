@@ -5,8 +5,8 @@
     <string name="loginBtnText">Login</string>
     <string name="loginLayoutHeadingText">Login:</string>
     <string name="greetingsAtTheStart">Welcome to\nCipher Bank</string>
-    <string name="greetingToNewUser">New user? \nPlease Contact Branch.</string>
-    <string name="greetingsToTheUser">Welcome \nJeevaprakash</string>
+    <string name="greetingToNewUser">New user? \nPlease Click here.</string>
+    <string name="greetingsToTheUser">Welcome \n</string>
     <string name="title_activity_user_operations">UserOperations</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -62,5 +62,11 @@
     <string name="IfRegistrationSuccess">Registered SuccessFully</string>
     <string name="userNameAlreadyExists">UserName Already Exists</string>
     <string name="AccountNumberAlreadyExists">Account Number Already Exist</string>
+    <string name="Confirm_Deposit_To_the_user">Do you want to Deposit the Amount ?</string>
+    <string name="Alert">Alert !</string>
+    <string name="Confirm">Confirm</string>
+    <string name="Cancel">Cancel</string>
+    <string name="ErrorAmountInvalid">Invalid Amount</string>
+    <string name="ErrorInvalidPin">Invalid Pin</string>
 
 </resources>

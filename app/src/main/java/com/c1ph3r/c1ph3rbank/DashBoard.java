@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.c1ph3r.c1ph3rbank.controller.UserDetail;
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
+import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationBarView;
@@ -32,7 +33,8 @@ public class DashBoard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
         UserDetail userDetail = new UserDetail();
-        userDetail.getUserDataBase(DashBoard.this);
+        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
+        userDetail.getUserDataBase(userDataBaseHelper);
         SharedPreferences sharedPreferences =getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
         int value = sharedPreferences.getInt("value", 0);
         userData = userDetail.getUserData(value);
@@ -61,8 +63,17 @@ public class DashBoard extends AppCompatActivity {
     }
     public void onBackPressed(){
         MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(this);
-        alertDialogBuilder.setTitle("Quit").setMessage("Do you Want to exit?").setPositiveButton("Back", (dialogInterface, i1) -> {}).setNegativeButton("Exit", (dialogInterface, i1) -> {
-            finishAffinity();
+        alertDialogBuilder.setTitle("Quit").setMessage("Do you Want to Logout?").setPositiveButton("Back", (dialogInterface, i1) -> {}).setNegativeButton("Exit", (dialogInterface, i1) -> {
+            UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
+            UserDetail userDetail = new UserDetail();
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
+            int value = sharedPreferences.getInt("value",0);
+            userDetail.getUserDataBase(userDataBaseHelper);
+            userData = userDetail.getUserData(value);
+            userData.setLoggedIn(false);
+            userDetail.updateUserData(value, userData.getBalance(),userDataBaseHelper, userData.isLoggedIn() );
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }).show();
     }
 }

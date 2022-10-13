@@ -13,6 +13,7 @@ import com.c1ph3r.c1ph3rbank.DashBoard;
 import com.c1ph3r.c1ph3rbank.MainActivity;
 import com.c1ph3r.c1ph3rbank.R;
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
+import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -32,24 +33,25 @@ public class UserVerification {
         this.userNameLayout = userNameLayout;
     }
 
-    /// DUMMY PART
+    // QUERY PART START
 
     public void verifyTheUser( SQLiteDatabase userDB, TextInputEditText userName, TextInputEditText pin) {
-        Cursor matchUserName = userDB.rawQuery("SELECT userName FROM userDetails WHERE userName Like ?",new String[]{"jeeva%"} );
-        String [] tables = {"accountNumber","userName", "pin", "accountType", "expiryDate", "balance"};
-        Cursor dummy = userDB.rawQuery("SELECT userName FROM userDetails WHERE userName =?",new String[]{"jeevaprakash"});
+        Cursor matchUserName = userDB.rawQuery("SELECT userName FROM userDetails WHERE userName = ?",new String[]{String.valueOf(userName.getText())} );
+        Cursor pinMatch = userDB.rawQuery("SELECT userName , pin FROM userDetails WHERE userName =? AND pin = ?",new String[]{String.valueOf(userName.getText()),String.valueOf(pin.getText())} );
         matchUserName.moveToFirst();
-        System.out.println(matchUserName.getCount());
-        for(int i = 0;i<matchUserName.getCount();i++){
-            System.out.println(matchUserName.getString(0));
-            matchUserName.moveToNext();
+        if(matchUserName.getCount() == 1 && matchUserName.getString(0).equals(String.valueOf(userName.getText()))) {
+            pinMatch.moveToFirst();
+            if(pinMatch.getCount() == 1 && ((pinMatch.getString(0).equals(String.valueOf(userName.getText()))) &&pinMatch.getString(1).equals(String.valueOf(pin.getText())))) {
+                // Verified using query.
+                System.out.println((pinMatch.getString(0) + pinMatch.getString(1)));
+            }
         }
-        dummy.close();
+        pinMatch.close();
         matchUserName.close();
 
     }
 
-    ///DUMMY PART
+    // QUERY PART END
 
     public void changeColorOfInputs() {
         pin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -81,17 +83,21 @@ public class UserVerification {
                     SharedPreferences.Editor editValues = sharedPreferences.edit();
                     editValues.putInt("value",userDataBase.indexOf(userDataBase.get(i)));
                     editValues.apply();
-                    intent.putExtra("value", userData);
+                    userData.setLoggedIn(true);
+                    UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(mainActivity);
+                    UserDetail userDetail = new UserDetail();
+                    userDetail.updateUserData(userDataBase.indexOf(userDataBase.get(i)), userData.getBalance(),userDataBaseHelper, userData.isLoggedIn() );
                     mainActivity.startActivity(intent);
                     mainActivity.finish();
                 }else{
-                    pinLayout.setError("Invalid Pin");
+                    pinLayout.setError(mainActivity.getString(R.string.ErrorInvalidPin));
                     pinLayout.setBoxStrokeColor(mainActivity.getColor(R.color.ErrorRed));
                     pinLayout.setErrorTextColor(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
                     pinLayout.setHintTextColor(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
                     pinLayout.setErrorIconTintList(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
                 }
                 userVerified = true;
+                break;
             }
         }if(!userVerified){
             userNameLayout.setError("UserName or Password invalid.");

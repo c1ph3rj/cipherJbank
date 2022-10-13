@@ -2,10 +2,8 @@ package com.c1ph3r.c1ph3rbank;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
@@ -18,16 +16,14 @@ import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.Random;
 
 public class NewUserRegisterPage extends AppCompatActivity {
     public TextInputEditText newUserName, newPin, newAccountNumber, reEnterPin;
     public TextInputLayout userNameLayout, pinLayout, reEnteredPinLayout, accountNoLayout;
-    public String userName, pin, reEnteredPin, accountNo, expiryDate, balance;
+    public String userName, pin, reEnteredPin, accountNo, balance;
     UserRegistration userRegistration;
     public RadioGroup newAccountType;
     public String accountType = "";
-    Random random;
     UserDataBaseHelper userDataBaseHelper;
 
     @Override
@@ -68,21 +64,21 @@ public class NewUserRegisterPage extends AppCompatActivity {
     public void onClickSubmitBtn(View view) {
 
         UserDetail userDetail = new UserDetail();
-        userDetail.getUserDataBase(this);
+        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
+        userDetail.getUserDataBase(userDataBaseHelper);
 
         // Converting the editable text values to String values.
         userName = String.valueOf(newUserName.getText());
         accountNo = String.valueOf(newAccountNumber.getText());
         pin = String.valueOf(newPin.getText());
         reEnteredPin = String.valueOf(reEnterPin.getText());
-        balance = getBalance();
-        expiryDate = getExpiryDate();
+
 
         // Creating the Object for the userRegistration.
             UserRegistration userRegistration = new UserRegistration();
             // Initializing the value inside the user registration.
             // Based on the result it calls the method inside the UserRegistration.
-            int resultCode = userRegistration.userDataVerification(userName, pin,reEnteredPin, accountNo, accountType, userDetail.userDataBase);
+            int resultCode = userRegistration.userDataVerification(userName, pin,reEnteredPin, accountNo, accountType, userDetail.userDataBase, userDataBaseHelper);
             switch (resultCode){
                 case 1:
                     // if the result code is 1 then userName layout color will change otherwise it is ignored.
@@ -101,21 +97,18 @@ public class NewUserRegisterPage extends AppCompatActivity {
                     Toast.makeText(this, getString(R.string.IfAccountTypeIsEmpty),Toast.LENGTH_SHORT ).show();
                     break;
                 case 6:
-                    boolean result = addUserToUserDetails();
-                    if(!result){
-                        Toast.makeText(this, R.string.IfRegistrationFailed, Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(this, getString(R.string.IfRegistrationSuccess), Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(this, MainActivity.class);
-                        startActivity(intent);
-                    }
+                    Toast.makeText(this, getString(R.string.IfRegistrationSuccess), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
                     break;
                 case 7:
                     errorDisplay(userNameLayout,  getString(R.string.userNameAlreadyExists));
                     break;
                 case 8:
                     errorDisplay(accountNoLayout, getString(R.string.AccountNumberAlreadyExists));
+                    break;
+                case 9:
+                    Toast.makeText(this, R.string.IfRegistrationFailed, Toast.LENGTH_SHORT).show();
                     break;
 
             }
@@ -151,29 +144,7 @@ public class NewUserRegisterPage extends AppCompatActivity {
     }
 
 
-    public boolean addUserToUserDetails() {
-        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
-        SQLiteDatabase userDataBase = userDataBaseHelper.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("accountNumber", accountNo);
-        contentValues.put("userName", userName);
-        contentValues.put("pin", pin);
-        contentValues.put("accountType", accountType);
-        contentValues.put("expiryDate", expiryDate);
-        contentValues.put("balance", balance);
 
-        long insert = userDataBase.insert("userDetails", null, contentValues);
-        return insert != -1;
-    }
-    String getBalance() {
-        int [] bal = {12000, 10000, 5000, 1000, 20000};
-        random = new Random();
-        return  String.valueOf(bal[random.nextInt(bal.length - 1)]);
-    }
 
-    String getExpiryDate() {
-        int month = random.nextInt(12);
-        return month + "/" + ((month<=4)?28:(month<=8)?35:38);
-    }
 
 }

@@ -59,6 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:hint="@string/userNameFieldHint"
+                android:maxLength="28"
                 android:onClick="OnClickUserLayout"
                 android:textColor="@color/Indigo"
                 android:textSize="18sp" />
@@ -81,7 +82,6 @@
             app:boxStrokeErrorColor="@color/ErrorRed"
             app:boxStrokeWidth="2dp"
             app:counterEnabled="true"
-            app:counterMaxLength="4"
             app:counterOverflowTextColor="@color/ErrorRed"
             app:counterTextColor="@color/Indigo"
             app:endIconMode="password_toggle"
@@ -94,6 +94,7 @@
                 android:id="@+id/PinField"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
+                android:maxLength="4"
                 android:hint="@string/pinFieldHint"
                 android:inputType="numberPassword"
                 android:onClick="OnClickPinLayout"

@@ -25,11 +25,11 @@ public class UserDetail {
 
 
 
-    public void getUserDataBase(Activity activity){
-        userDataBaseHelper = new UserDataBaseHelper(activity);
+    public void getUserDataBase(UserDataBaseHelper userDataBaseHelper){
+        this.userDataBaseHelper = userDataBaseHelper;
         userDBRead = userDataBaseHelper.getReadableDatabase();
         contentValues = new ContentValues();
-        String[] tableNames = {"accountNumber","userName", "pin", "accountType", "expiryDate", "balance"};
+        String[] tableNames = {"accountNumber","userName", "pin", "accountType", "expiryDate", "balance", "loggedIn"};
         cursor = userDBRead.query("userDetails", tableNames,null,null,null,null,null);
         if(cursor.moveToFirst()) {
             while (cursor.moveToNext()) {
@@ -39,7 +39,8 @@ public class UserDetail {
                 String accountType = cursor.getString(3);
                 String expiryDate = cursor.getString(4);
                 int balance = Integer.parseInt(cursor.getString(5));
-                userDataBase.add(new UserDataBase(name, accountNo, pin, accountType, balance, expiryDate));
+                boolean loggedIn = Boolean.parseBoolean(cursor.getString(6));
+                userDataBase.add(new UserDataBase(name, accountNo, pin, accountType, balance, expiryDate, loggedIn));
             }
         }
         cursor.close();
@@ -49,17 +50,18 @@ public class UserDetail {
      return userDataBase.get(i);
     }
 
-    public void updateUserData(int i, int balance, Activity activity){
-        userDataBaseHelper = new UserDataBaseHelper(activity);
+    public void updateUserData(int i, int balance, UserDataBaseHelper userDataBaseHelper,boolean loggedIn){
         userDBWrite = userDataBaseHelper.getWritableDatabase();
-        String[] tableNames = {"accountNumber","userName", "pin", "accountType", "expiryDate", "balance"};
-        cursor = userDBRead.query("userDetails", tableNames,null,null,null,null,null);
+        String[] tableNames = {"accountNumber","userName", "pin", "accountType", "expiryDate", "balance", "loggedIn"};
+        Cursor cursor = userDBWrite.query("userDetails", tableNames,null,null,null,null,null);
+        getUserDataBase(userDataBaseHelper);
         UserDataBase userData = userDataBase.get(i);
         cursor.moveToFirst();
         String Name = userDataBase.get(i).getName();
         while(cursor.moveToNext()){
             if(Name.equals(cursor.getString(1))){
-                contentValues.put("pin", userData.getPin());
+                contentValues.put("loggedIn",String.valueOf(loggedIn));
+                contentValues.put("pin", String.valueOf(userData.getPin()));
                 contentValues.put("balance", balance);
                 userDBWrite.update("userDetails",contentValues,"userName=?",new String[]{userData.getName()});
                 System.out.println("\n\n\n\n\n\n\n" + cursor.getString(5)+"\n\n\n\n\n\n");

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.c1ph3r.c1ph3rbank.controller.UserDetail;
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
+import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -26,13 +27,14 @@ public class Deposit extends AppCompatActivity {
     TextInputLayout amountFieldLayout;
     TextInputEditText amountField;
     Dialog dialog;
+    int value;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deposit);
         Intent intent = getIntent();
         depositButton = findViewById(R.id.DepositButton);
-        userData = (UserDataBase) intent.getSerializableExtra("value");
         amountField = findViewById(R.id.AmountFieldDeposit);
         amountFieldLayout = findViewById(R.id.AmountFieldLayoutDeposit);
         dialog = new Dialog(this);
@@ -40,8 +42,12 @@ public class Deposit extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.gradient1));
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.setCancelable(false);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
+        value = sharedPreferences.getInt("value",0);
         userDetail = new UserDetail();
-        userDetail.getUserDataBase(this);
+        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
+        userDetail.getUserDataBase(userDataBaseHelper);
+        userData = userDetail.userDataBase.get(value);
         MaterialButton backBtnDeposit = dialog.findViewById(R.id.backBtnDeposit);
         backBtnDeposit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +63,6 @@ public class Deposit extends AppCompatActivity {
         try{
             if(Integer.parseInt(String.valueOf(amountField.getText()))>= 100){
                 amountConfirmation();
-                System.out.println("Amount Has been taken from your account.\nBalance:" + userData.getBalance());
             }else{
                 error();
             }
@@ -67,7 +72,7 @@ public class Deposit extends AppCompatActivity {
     }
 
     public void error(){
-        amountFieldLayout.setError("Invalid Amount");
+        amountFieldLayout.setError(getString(R.string.ErrorAmountInvalid));
         amountFieldLayout.setErrorEnabled(true);
         amountFieldLayout.setBoxStrokeErrorColor(ColorStateList.valueOf(getColor(R.color.ErrorRed)));
         amountFieldLayout.setErrorTextColor(ColorStateList.valueOf(getColor(R.color.ErrorRed)));
@@ -85,18 +90,17 @@ public class Deposit extends AppCompatActivity {
 
     public void amountConfirmation(){
         AlertDialog.Builder builder = new AlertDialog.Builder(Deposit.this);
-        builder.setMessage("Do you want to Deposit the Amount ?");
-        builder.setTitle("Alert !");
+        builder.setMessage(R.string.Confirm_Deposit_To_the_user);
+        builder.setTitle(R.string.Alert);
         builder.setCancelable(true);
-        builder.setPositiveButton("Confirm", (DialogInterface.OnClickListener) (dialog, which) -> {
+        builder.setPositiveButton(R.string.Confirm, (DialogInterface.OnClickListener) (dialog, which) -> {
             userData.setBalance(userData.getBalance() + Integer.parseInt(String.valueOf(amountField.getText())));
             System.out.println(userData.getBalance());
-            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
-            int value = sharedPreferences.getInt("value",0);
-            userDetail.updateUserData(value, userData.getBalance(), Deposit.this);
+            UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
+            userDetail.updateUserData(value, userData.getBalance(),userDataBaseHelper, userData.isLoggedIn() );
             this.dialog.show();
         });
-        builder.setNegativeButton("Cancel", (DialogInterface.OnClickListener) (dialog, which) -> {
+        builder.setNegativeButton(R.string.Cancel, (DialogInterface.OnClickListener) (dialog, which) -> {
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();

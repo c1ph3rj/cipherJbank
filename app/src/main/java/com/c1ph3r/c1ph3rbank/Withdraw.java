@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 
 import com.c1ph3r.c1ph3rbank.controller.UserDetail;
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
+import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -30,7 +31,7 @@ public class Withdraw extends AppCompatActivity {
     TextInputEditText amountField;
     UserDetail userDetail;
     Dialog dialog;
-
+    int value;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,13 +42,15 @@ public class Withdraw extends AppCompatActivity {
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.setCancelable(false);
         MaterialButton backBtnWithdraw = dialog.findViewById(R.id.backBtnWithdraw);
-        Intent intent = getIntent();
         withdrawButton = findViewById(R.id.withdrawButton);
-        userData = (UserDataBase) intent.getSerializableExtra("value");
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
+        value = sharedPreferences.getInt("value",0);
         amountField = findViewById(R.id.AmountField);
         amountFieldLayout = findViewById(R.id.AmountFieldLayout);
         userDetail = new UserDetail();
-        userDetail.getUserDataBase(this);
+        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
+        userDetail.getUserDataBase(userDataBaseHelper);
+        userData = userDetail.userDataBase.get(value);
         backBtnWithdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,10 +87,9 @@ public class Withdraw extends AppCompatActivity {
         builder.setPositiveButton("Confirm", (DialogInterface.OnClickListener) (dialog, which) -> {
                 userData.setBalance(userData.getBalance() - Integer.parseInt(String.valueOf(amountField.getText())));
                 System.out.println(userData.getBalance());
-            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
-            int value = sharedPreferences.getInt("value",0);
-                userDetail.updateUserData(value, userData.getBalance(), Withdraw.this);
-                this.dialog.show();
+            UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
+            userDetail.updateUserData(value, userData.getBalance(),userDataBaseHelper, userData.isLoggedIn() );
+            this.dialog.show();
         });
         builder.setNegativeButton("Cancel", (DialogInterface.OnClickListener) (dialog, which) -> {
         });

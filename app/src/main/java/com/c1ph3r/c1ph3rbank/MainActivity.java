@@ -2,7 +2,9 @@ package com.c1ph3r.c1ph3rbank;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,15 +25,15 @@ import java.util.ArrayList;
 
 /*TODO :
     -- Primary --
-    Verify if the username is available or not
-    Verify userName and password using the SQLite queries
+    Verify if the username is available or not --done
+    Verify userName and password using the SQLite queries -- half done
     Add transactions page
     Handle errors using try catch
     Convert strings to string resource file
     Clean up code finally
     Add comments
     -- Secondary --
-    Add is user logged in feature
+    Add is user logged in feature --done
     Add change pin option
     Clean the ui
     Add logout feature
@@ -55,24 +57,35 @@ public class MainActivity extends AppCompatActivity {
         pin = findViewById(R.id.PinField);
 
         userDetail = new UserDetail();
-        userDetail.getUserDataBase(this);
+        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
+        userDetail.getUserDataBase(userDataBaseHelper);
         userVerification = new UserVerification();
         userVerification.dataRequiredForVerification(MainActivity.this,userName,pin,pinLayout,userNameLayout);
         userVerification.changeColorOfInputs();
 
+        for(int i =0;i<userDetail.userDataBase.size();i++){
+            if(userDetail.userDataBase.get(i).isLoggedIn()){
+                Intent intent = new Intent(this, DashBoard.class);
+                SharedPreferences sharedPreferences = this.getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editValues = sharedPreferences.edit();
+                editValues.putInt("value",userDetail.userDataBase.indexOf(userDetail.userDataBase.get(i)));
+                editValues.apply();
+                startActivity(intent);
+                finish();
+            }
+        }
 
     }
 
     public void onClickLoginBtn(View view) {
-        userDetail = new UserDetail();
-        userDetail.getUserDataBase(this);
+        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
+        userDetail.getUserDataBase(userDataBaseHelper);
         ArrayList<UserDataBase> userDataBase = userDetail.userDataBase;
         userVerification.verifyTheUser(userDataBase);
-        // dummy part
-        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(MainActivity.this);
+        // Query part
         SQLiteDatabase userDB = userDataBaseHelper.getReadableDatabase();
         userVerification.verifyTheUser(userDB, userName, pin);
-        //dummy part
+        //Query part
 
 
     }
@@ -89,10 +102,15 @@ public class MainActivity extends AppCompatActivity {
         userNameLayout.setBoxStrokeColor(getColor(R.color.Indigo));
     }
 
+
+    // On clicking new user It Forwards you to Registration page
     public void onClickNewUserRegister(View view) {
         Intent intent = new Intent(this, NewUserRegisterPage.class);
         startActivity(intent);
     }
+
+    // Do on Back Pressed
+    // * Ask the person wants to logout or not. And if yes it logout and exits.
     public void onBackPressed(){
         MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(this);
         alertDialogBuilder.setTitle("UserDetails").setMessage("Do you Want to exit?").setPositiveButton("Back", (dialogInterface, i1) -> {}).setNegativeButton("Exit", (dialogInterface, i1) -> {
