@@ -71,5 +71,8 @@
     <string name="settings_headding">Settings</string>
     <string name="change_pin_text">Change Pin</string>
     <string name="logout_text">Logout</string>
+    <string name="debit_nav_string">Debit</string>
+    <string name="credit_nav_string">Credit</string>
+    <string name="heading_debit">Debited Transactions</string>
 
 </resources>
