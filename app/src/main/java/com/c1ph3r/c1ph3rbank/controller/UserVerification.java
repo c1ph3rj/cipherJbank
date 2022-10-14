@@ -44,6 +44,7 @@ public class UserVerification {
             if(pinMatch.getCount() == 1 && ((pinMatch.getString(0).equals(String.valueOf(userName.getText()))) &&pinMatch.getString(1).equals(String.valueOf(pin.getText())))) {
                 // Verified using query.
                 System.out.println((pinMatch.getString(0) + pinMatch.getString(1)));
+                System.out.println(pinMatch.getPosition());
             }
         }
         pinMatch.close();
@@ -77,7 +78,6 @@ public class UserVerification {
         for (int i = 0; i < userDataBase.size(); i++) {
             if (String.valueOf(userName.getText()).equals(userDataBase.get(i).getName())) {
                 if (String.valueOf(pin.getText()).equals(String.valueOf(userDataBase.get(i).getPin()))) {
-                    Intent intent = new Intent(mainActivity, DashBoard.class);
                     userData = userDataBase.get(i);
                     SharedPreferences sharedPreferences = mainActivity.getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editValues = sharedPreferences.edit();
@@ -87,6 +87,7 @@ public class UserVerification {
                     UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(mainActivity);
                     UserDetail userDetail = new UserDetail();
                     userDetail.updateUserData(userDataBase.indexOf(userDataBase.get(i)), userData.getBalance(),userDataBaseHelper, userData.isLoggedIn() );
+                    Intent intent = new Intent(mainActivity, DashBoard.class);
                     mainActivity.startActivity(intent);
                     mainActivity.finish();
                 }else{

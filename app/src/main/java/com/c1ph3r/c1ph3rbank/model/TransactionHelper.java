@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class TransactionHelper extends SQLiteOpenHelper {
     public TransactionHelper(@Nullable Context context, @Nullable String name) {
-        super(context, name, null , 1);
+        super(context, name+"Transaction", null , 1);
     }
 
     @Override

@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.SurfaceControl;
@@ -37,6 +39,9 @@ public class TransactionsDetails extends AppCompatActivity {
         UserDataBase userData = userDetail.getUserData(value);
         getSupportFragmentManager().beginTransaction().replace(R.id.transactionPage, new debit_history(userData)).commit();
         bottomNavigation.setSelectedItemId(R.id.dashboard_icon);
+
+
+
         bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

@@ -11,13 +11,11 @@ public class Transactions {
     public ArrayList<String> getDebit(TransactionHelper transactionHelper){
         ArrayList<String> debit = new ArrayList<>();
         SQLiteDatabase getDebit = transactionHelper.getReadableDatabase();
-//        Cursor cursor = getDebit.query("debit",new String[]{"id","transactions"},null,null,null,null, "id" +" DESC","1");
-//        cursor.moveToFirst();
-//        while(cursor.moveToNext()){
-//            debit.add(cursor.getString(1));
-//        }
-        Cursor cursor = getDebit.rawQuery("SELECT * FROM debit",null);
-        debit.add(String.valueOf(cursor.getCount()));
+        Cursor cursor = getDebit.query("debit",new String[]{"transactions"},null,null,null,null, "id" +" DESC","1");
+        cursor.moveToFirst();
+        while(cursor.moveToNext()){
+            debit.add(cursor.getString(1));
+        }
         cursor.close();
         return debit;
     }

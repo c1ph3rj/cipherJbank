@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickLoginBtn(View view) {
+        userDetail = new UserDetail();
         UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
         userDetail.getUserDataBase(userDataBaseHelper);
         ArrayList<UserDataBase> userDataBase = userDetail.userDataBase;

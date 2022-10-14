@@ -32,7 +32,7 @@ public class UserDetail {
         String[] tableNames = {"accountNumber","userName", "pin", "accountType", "expiryDate", "balance", "loggedIn"};
         cursor = userDBRead.query("userDetails", tableNames,null,null,null,null,null);
         if(cursor.moveToFirst()) {
-            while (cursor.moveToNext()) {
+            do {
                 int accountNo = Integer.parseInt(cursor.getString(0));
                 String name = cursor.getString(1);
                 int pin = Integer.parseInt(cursor.getString(2));
@@ -41,7 +41,7 @@ public class UserDetail {
                 int balance = Integer.parseInt(cursor.getString(5));
                 boolean loggedIn = Boolean.parseBoolean(cursor.getString(6));
                 userDataBase.add(new UserDataBase(name, accountNo, pin, accountType, balance, expiryDate, loggedIn));
-            }
+            }while (cursor.moveToNext());
         }
         cursor.close();
     }
@@ -58,7 +58,7 @@ public class UserDetail {
         UserDataBase userData = userDataBase.get(i);
         cursor.moveToFirst();
         String Name = userDataBase.get(i).getName();
-        while(cursor.moveToNext()){
+        do{
             if(Name.equals(cursor.getString(1))){
                 contentValues.put("loggedIn",String.valueOf(loggedIn));
                 contentValues.put("pin", String.valueOf(userData.getPin()));
@@ -67,7 +67,7 @@ public class UserDetail {
                 System.out.println("\n\n\n\n\n\n\n" + cursor.getString(5)+"\n\n\n\n\n\n");
             }
 
-        }
+        }while(cursor.moveToNext());
         cursor.close();
     }
 }
