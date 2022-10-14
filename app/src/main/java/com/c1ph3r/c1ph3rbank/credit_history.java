@@ -38,12 +38,15 @@ public class credit_history extends Fragment {
     public void onStart() {
         super.onStart();
         View view = getView();
-        System.out.println(user.getName());
-        TransactionHelper transactionHelper = new TransactionHelper(getActivity(),user.getName()+"Transactions");
-        ListView creditList = view.findViewById(R.id.credit_List);
-        Transactions transactions = new Transactions();
-        System.out.println(transactions.getCredit(transactionHelper).toString());
-        ListAdapter adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_expandable_list_item_1, transactions.getCredit(transactionHelper));
-        creditList.setAdapter(adapter);
+        try{
+            TransactionHelper transactionHelper = new TransactionHelper(getActivity(),user.getName()+"Transactions");
+            ListView creditList = view.findViewById(R.id.credit_List);
+            Transactions transactions = new Transactions();
+            System.out.println(transactions.getCredit(transactionHelper).toString());
+            ListAdapter adapter = new ArrayAdapter<String>(getActivity(), R.layout.item_layout_for_list, transactions.getCredit(transactionHelper));
+            creditList.setAdapter(adapter);
+        }catch(Exception e){
+            System.out.println(e.toString()+"");
+        }
     }
 }

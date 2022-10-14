@@ -11,15 +11,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="320dp"
         android:layout_gravity="center"
-        android:layout_height="500dp"
-        android:background="@drawable/user_login_layout_background">
+        android:layout_height="500dp">
 
         <ListView
             android:layout_width="318dp"
             android:layout_height="498dp"
             android:scrollbars="none"
-            android:background="@drawable/gradient2"
-            android:backgroundTint="#514E4E"
+            android:theme="@style/Theme.Material3.Light"
+            android:background="@drawable/user_login_layout_background"
             android:id="@+id/Debit_list"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

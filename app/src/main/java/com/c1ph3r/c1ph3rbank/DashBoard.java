@@ -66,7 +66,7 @@ public class DashBoard extends AppCompatActivity {
             userData.setLoggedIn(false);
             userDetail.updateUserData(value, userData.getBalance(),userDataBaseHelper, userData.isLoggedIn() );
             Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);}).setNegativeButton("Back", (dialogInterface, i1) -> {
+            startActivity(intent);}).setNegativeButton("No", (dialogInterface, i1) -> {
         }).show();
     }
 }

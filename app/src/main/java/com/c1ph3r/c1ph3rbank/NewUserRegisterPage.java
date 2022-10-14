@@ -2,10 +2,8 @@ package com.c1ph3r.c1ph3rbank;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
@@ -101,7 +99,7 @@ public class NewUserRegisterPage extends AppCompatActivity {
                     break;
                 case 6:
                     Toast.makeText(this, getString(R.string.IfRegistrationSuccess), Toast.LENGTH_SHORT).show();
-                    TransactionHelper transactionHelper = new TransactionHelper(this, (userName + "Transactions"));
+                    new TransactionHelper(this, (userName + "Transactions"));
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                     break;

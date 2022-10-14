@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+// Method to create a Table and Access the Table.
 public class TransactionHelper extends SQLiteOpenHelper {
     public TransactionHelper(@Nullable Context context, @Nullable String name) {
         super(context, name+"Transactions", null , 1);

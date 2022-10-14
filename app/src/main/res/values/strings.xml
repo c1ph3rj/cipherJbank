@@ -54,9 +54,9 @@
 
     //ERROR MESSAGES
     <string name="IfUserNameIsEmpty">Enter a UserName.</string>
-    <string name="IfPinIsEmpty">Enter a pin.</string>
+    <string name="IfPinIsEmpty">Enter a valid Pin.</string>
     <string name="IfReEnterPinIsEmpty">Enter a ConfirmPin.</string>
-    <string name="IfAccountNoIsEmpty">Enter a AccountNumber.</string>
+    <string name="IfAccountNoIsEmpty">Enter a Valid AccountNumber.</string>
     <string name="IfAccountTypeIsEmpty">Choose your Account Type.</string>
     <string name="IfRegistrationFailed">Failed To Register.</string>
     <string name="IfRegistrationSuccess">Registered SuccessFully</string>
@@ -75,5 +75,6 @@
     <string name="credit_nav_string">Credit</string>
     <string name="heading_debit">Transactions\nDebits:</string>
     <string name="transactions_credits_text">Transactions\nCredits:</string>
+    <string name="userNameAndPasswordError">UserName or Password invalid.</string>
 
 </resources>

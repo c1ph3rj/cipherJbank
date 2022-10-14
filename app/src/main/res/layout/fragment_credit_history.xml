@@ -14,15 +14,15 @@
         android:background="@drawable/user_login_layout_background">
 
         <ListView
-            android:layout_width="318dp"
+            android:layout_width="340dp"
             android:layout_height="498dp"
             android:scrollbars="none"
-            android:background="@drawable/gradient2"
-            android:backgroundTint="#514E4E"
+            android:paddingStart="10dp"
             android:id="@+id/credit_List"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

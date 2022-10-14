@@ -30,44 +30,61 @@ public class UserRegistration {
     // To verify the user input. this method returns the int values based on the input.
     // Based on the int value the EditText box in the View will react.
     public int userDataVerification(String userName, String pin, String reEnteredPin, String accountNo, String accountType, ArrayList<UserDataBase> userDataBase, UserDataBaseHelper userDB){
-        try{
-           // Verifying the data using nested IF else statement.
-           if(!userName.isEmpty()){
-               for(int i = 0;i<userDataBase.size();i++){
-                   if(userName.equals(userDataBase.get(i).getName())){
-                       return 7;
-                   }
-               }
-           }else
-                return 1;
-            if(pin.isEmpty()){
-                return 2;
-            }
-            if(reEnteredPin.isEmpty()){
-                return 3;
-            }
-            if(!accountNo.isEmpty()){
-                for(int i = 0;i<userDataBase.size();i++){
-                    if(accountNo.equals(String.valueOf(userDataBase.get(i).getAccountNo()))){
-                        return 8;
+        try {
+            // Verifying the data using nested IF else statement.
+            if (!userName.isEmpty()) {
+                for (int i = 0; i < userDataBase.size(); i++) {
+                    // Verify if the userName already exists to the db.
+                    if (userName.equals(userDataBase.get(i).getName())) {
+                        return 7;
                     }
                 }
-            }else
+            } else
+                // Both condition is false this will execute.
+                return 1;
+
+            // Confirm Pin verification.
+            if (reEnteredPin.isEmpty()) {
+                return 3;
+            } else if (reEnteredPin.equals(pin))
+                return 3;
+
+            // Pin verification
+            if (pin.isEmpty()) {
+                return 2;
+                // If the pin is less than 4 it won't works
+            } else if (pin.length() == 4) {
+                return 2;
+            }
+
+
+            //Account NO verification.
+            if (!accountNo.isEmpty()) {
+                for (int i = 0; i < userDataBase.size(); i++) {
+                    if (accountNo.length() == 8) {
+                        if (accountNo.equals(String.valueOf(userDataBase.get(i).getAccountNo()))) {
+                            return 8;
+                        }
+                    } else
+                        return 4;
+                }
+            } else
                 return 4;
-            if(accountType.isEmpty()){
+
+            // Account Type verification.
+            if (accountType.isEmpty()) {
 
                 return 5;
-            }else{
+            } else {
                 boolean result = addUserToUserDetails(userName, pin, accountNo, accountType, getBalance(), getExpiryDate(), userDB);
-                if(result){
+                if (result) {
                     return 6;
-                }else
+                } else
                     return 9;
             }
-       }
-
+        }
        catch(Exception e){
-           System.out.println(e);
+           System.out.println(e + " | UserVerification");
            return 0;
        }
     }
@@ -84,6 +101,7 @@ public class UserRegistration {
         contentValues.put("balance", balance);
         contentValues.put("loggedIn", "false");
         long insert = userDataBase.insert("userDetails", null, contentValues);
+        // returns false if the data does not add on the sqlite DB.
         return insert != -1;
     }
 

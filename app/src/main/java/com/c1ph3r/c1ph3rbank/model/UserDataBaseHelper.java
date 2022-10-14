@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import com.c1ph3r.c1ph3rbank.NewUserRegisterPage;
 import com.c1ph3r.c1ph3rbank.controller.UserRegistration;
 
+// Method to Create and access the User Data Base DB.
 public class UserDataBaseHelper extends SQLiteOpenHelper {
 
     public UserDataBaseHelper(@Nullable Context context) {

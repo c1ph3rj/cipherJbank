@@ -20,20 +20,24 @@ public class Balance extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_balance);
-        Intent intent = getIntent();
-        userData = (UserDataBase) intent.getSerializableExtra("value");
-        displayBalance = findViewById(R.id.displayBalance);
-        backBtnBalance = findViewById(R.id.backBtnBalance);
-        displayBalance.setText("₹ " + String.valueOf(userData.getBalance()));
-        System.out.println(userData.getBalance());
-        backBtnBalance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Balance.this, DashBoard.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        try{
+            Intent intent = getIntent();
+            userData = (UserDataBase) intent.getSerializableExtra("value");
+            displayBalance = findViewById(R.id.displayBalance);
+            backBtnBalance = findViewById(R.id.backBtnBalance);
+            displayBalance.setText("₹ " + String.valueOf(userData.getBalance()));
+            System.out.println(userData.getBalance());
+            backBtnBalance.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Balance.this, DashBoard.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }catch(Exception e){
+            System.out.println(e.toString()+"");
+        }
 
     }
     public void onBackPressed(){
