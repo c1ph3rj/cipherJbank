@@ -44,19 +44,16 @@ public class UserRegistration {
                 return 1;
 
             // Confirm Pin verification.
-            if (reEnteredPin.isEmpty()) {
-                return 3;
-            } else if (reEnteredPin.equals(pin))
-                return 3;
+
 
             // Pin verification
             if (pin.isEmpty()) {
                 return 2;
                 // If the pin is less than 4 it won't works
-            } else if (pin.length() == 4) {
-                return 2;
             }
-
+            if (reEnteredPin.isEmpty()) {
+                return 3;
+            }
 
             //Account NO verification.
             if (!accountNo.isEmpty()) {
