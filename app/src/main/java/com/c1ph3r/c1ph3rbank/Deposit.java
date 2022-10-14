@@ -39,32 +39,36 @@ public class Deposit extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_deposit);
-        Intent intent = getIntent();
-        depositButton = findViewById(R.id.DepositButton);
-        amountField = findViewById(R.id.AmountFieldDeposit);
-        amountFieldLayout = findViewById(R.id.AmountFieldLayoutDeposit);
-        dialog = new Dialog(this);
-        dialog.setContentView(R.layout.fragment_confirmation_for_deposit);
-        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.gradient1));
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-        dialog.setCancelable(false);
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
-        value = sharedPreferences.getInt("value",0);
-        userDetail = new UserDetail();
-        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
-        userDetail.getUserDataBase(userDataBaseHelper);
-        userData = userDetail.userDataBase.get(value);
-        MaterialButton backBtnDeposit = dialog.findViewById(R.id.backBtnDeposit);
-        backBtnDeposit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Deposit.this,DashBoard.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        try{
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_deposit);
+            Intent intent = getIntent();
+            depositButton = findViewById(R.id.DepositButton);
+            amountField = findViewById(R.id.AmountFieldDeposit);
+            amountFieldLayout = findViewById(R.id.AmountFieldLayoutDeposit);
+            dialog = new Dialog(this);
+            dialog.setContentView(R.layout.fragment_confirmation_for_deposit);
+            dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.gradient1));
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+            dialog.setCancelable(false);
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
+            value = sharedPreferences.getInt("value",0);
+            userDetail = new UserDetail();
+            UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
+            userDetail.getUserDataBase(userDataBaseHelper);
+            userData = userDetail.userDataBase.get(value);
+            MaterialButton backBtnDeposit = dialog.findViewById(R.id.backBtnDeposit);
+            backBtnDeposit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Deposit.this,DashBoard.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }catch (Exception e){
+            System.out.println(e.getMessage() + "| Initialization part in Deposit");
+        }
     }
 
     public void OnClickVerifyDepositPay(View view) {
@@ -123,20 +127,24 @@ public class Deposit extends AppCompatActivity {
     }
 
     void depositAmount(){
-        userData.setBalance(userData.getBalance() + Integer.parseInt(String.valueOf(amountField.getText())));
-        System.out.println(userData.getBalance());
-        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
-        userDetail.updateUserData(value, userData.getBalance(),userDataBaseHelper, userData.isLoggedIn() );
-        TransactionHelper transactionHelper = new TransactionHelper(this, (userData.getName() + "Transactions"));
-        SQLiteDatabase transactions = transactionHelper.getWritableDatabase();
-        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        System.out.println(dateFormat.format(date));
-        ContentValues creditedValues = new ContentValues();
-        String Transactions = "To: C1ph3RBank   Amount: " + amountField.getText() + "\nOn:" + dateFormat.format(date);
-        creditedValues.put("transactions",Transactions);
-        long value = transactions.insert("credit",null,creditedValues);
-        System.out.println("\n\n\n\n\n\n " + value);
-        this.dialog.show();
+        try{
+            userData.setBalance(userData.getBalance() + Integer.parseInt(String.valueOf(amountField.getText())));
+            System.out.println(userData.getBalance());
+            UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
+            userDetail.updateUserData(value, userData.getBalance(),userDataBaseHelper, userData.isLoggedIn() );
+            TransactionHelper transactionHelper = new TransactionHelper(this, (userData.getName() + "Transactions"));
+            SQLiteDatabase transactions = transactionHelper.getWritableDatabase();
+            @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy   HH:mm:ss");
+            Date date = new Date();
+            System.out.println(dateFormat.format(date));
+            ContentValues creditedValues = new ContentValues();
+            String Transactions = "From: C1ph3RBank   Amount: " + amountField.getText() + "\nOn:" + dateFormat.format(date);
+            creditedValues.put("transactions",Transactions);
+            long value = transactions.insert("credit",null,creditedValues);
+            System.out.println("\n\n\n\n\n\n " + value);
+            this.dialog.show();
+        }catch (Exception e){
+            System.out.println(e.getMessage() + "| Deposit Amount");
+        }
     }
 }

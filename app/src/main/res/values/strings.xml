@@ -73,6 +73,7 @@
     <string name="logout_text">Logout</string>
     <string name="debit_nav_string">Debit</string>
     <string name="credit_nav_string">Credit</string>
-    <string name="heading_debit">Debited Transactions</string>
+    <string name="heading_debit">Transactions\nDebits:</string>
+    <string name="transactions_credits_text">Transactions\nCredits:</string>
 
 </resources>

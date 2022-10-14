@@ -40,8 +40,6 @@ public class TransactionsDetails extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.transactionPage, new debit_history(userData)).commit();
         bottomNavigation.setSelectedItemId(R.id.dashboard_icon);
 
-
-
         bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

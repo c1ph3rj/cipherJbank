@@ -18,6 +18,8 @@
             android:layout_width="318dp"
             android:layout_height="498dp"
             android:scrollbars="none"
+            android:background="@drawable/gradient2"
+            android:backgroundTint="#514E4E"
             android:id="@+id/Debit_list"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

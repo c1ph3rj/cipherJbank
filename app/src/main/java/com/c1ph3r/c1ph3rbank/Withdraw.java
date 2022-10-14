@@ -44,40 +44,48 @@ public class Withdraw extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_withdraw);
-        dialog = new Dialog(this);
-        dialog.setContentView(R.layout.custom_dialog_one);
-        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.gradient1));
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-        dialog.setCancelable(false);
-        MaterialButton backBtnWithdraw = dialog.findViewById(R.id.backBtnWithdraw);
-        withdrawButton = findViewById(R.id.withdrawButton);
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
-        value = sharedPreferences.getInt("value",0);
-        toName = findViewById(R.id.SenderIDField);
-        amountField = findViewById(R.id.AmountField);
-        amountFieldLayout = findViewById(R.id.AmountFieldLayout);
-        userDetail = new UserDetail();
-        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
-        userDetail.getUserDataBase(userDataBaseHelper);
-        userData = userDetail.userDataBase.get(value);
-        TransactionHelper transactionHelper = new TransactionHelper(this, userData.getName()+"Transactions");
-        backBtnWithdraw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Withdraw.this,DashBoard.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        try{
+            dialog = new Dialog(this);
+            dialog.setContentView(R.layout.custom_dialog_one);
+            dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.gradient1));
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+            dialog.setCancelable(false);
+            MaterialButton backBtnWithdraw = dialog.findViewById(R.id.backBtnWithdraw);
+            withdrawButton = findViewById(R.id.withdrawButton);
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
+            value = sharedPreferences.getInt("value",0);
+            toName = findViewById(R.id.SenderIDField);
+            amountField = findViewById(R.id.AmountField);
+            amountFieldLayout = findViewById(R.id.AmountFieldLayout);
+            userDetail = new UserDetail();
+            UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
+            userDetail.getUserDataBase(userDataBaseHelper);
+            userData = userDetail.userDataBase.get(value);
+            TransactionHelper transactionHelper = new TransactionHelper(this, userData.getName()+"Transactions");
+            backBtnWithdraw.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Withdraw.this,DashBoard.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        } catch(Exception e){
+            System.out.println(e.getMessage() + "| OnCreate WithDraw");
+        }
     }
 
     public void error(){
-        amountFieldLayout.setError("Invalid Amount");
-        amountFieldLayout.setErrorEnabled(true);
-        amountFieldLayout.setBoxStrokeErrorColor(ColorStateList.valueOf(getColor(R.color.ErrorRed)));
-        amountFieldLayout.setErrorTextColor(ColorStateList.valueOf(getColor(R.color.ErrorRed)));
-        amountFieldLayout.setHintTextColor(ColorStateList.valueOf(getColor(R.color.ErrorRed)));
-        amountFieldLayout.setErrorIconTintList(ColorStateList.valueOf(getColor(R.color.ErrorRed)));
+        try{
+            amountFieldLayout.setError("Invalid Amount");
+            amountFieldLayout.setErrorEnabled(true);
+            amountFieldLayout.setBoxStrokeErrorColor(ColorStateList.valueOf(getColor(R.color.ErrorRed)));
+            amountFieldLayout.setErrorTextColor(ColorStateList.valueOf(getColor(R.color.ErrorRed)));
+            amountFieldLayout.setHintTextColor(ColorStateList.valueOf(getColor(R.color.ErrorRed)));
+            amountFieldLayout.setErrorIconTintList(ColorStateList.valueOf(getColor(R.color.ErrorRed)));
+        }catch(Exception e){
+            System.out.println(e.getMessage() + "| error in error");
+        }
     }
 
 
@@ -130,21 +138,25 @@ public class Withdraw extends AppCompatActivity {
     }
 
     void withdrawAmount(){
-        userData.setBalance(userData.getBalance() - Integer.parseInt(String.valueOf(amountField.getText())));
-        System.out.println(userData.getBalance());
-        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
-        userDetail.updateUserData(value, userData.getBalance(),userDataBaseHelper, userData.isLoggedIn() );
-        TransactionHelper transactionHelper = new TransactionHelper(this, (userData.getName() + "Transactions"));
-        SQLiteDatabase transactions = transactionHelper.getWritableDatabase();
-        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        System.out.println(dateFormat.format(date));
-        ContentValues DebitedValues = new ContentValues();
-        String Transactions = "To: "+ toName.getText() + "    Amount: " + amountField.getText() + "\nOn:" + dateFormat.format(date);
-        DebitedValues.put("transactions",Transactions);
-        long value = transactions.insert("debit",null,DebitedValues);
-        System.out.println("\n\n\n\n\n\n " + value);
-        this.dialog.show();
+        try{
+            userData.setBalance(userData.getBalance() - Integer.parseInt(String.valueOf(amountField.getText())));
+            System.out.println(userData.getBalance());
+            UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
+            userDetail.updateUserData(value, userData.getBalance(),userDataBaseHelper, userData.isLoggedIn() );
+            TransactionHelper transactionHelper = new TransactionHelper(this, (userData.getName() + "Transactions"));
+            SQLiteDatabase transactions = transactionHelper.getWritableDatabase();
+            @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy   HH:mm:ss");
+            Date date = new Date();
+            System.out.println(dateFormat.format(date));
+            ContentValues DebitedValues = new ContentValues();
+            String Transactions = "To: "+ toName.getText() + "    Amount: " + amountField.getText() + "\nOn:" + dateFormat.format(date);
+            DebitedValues.put("transactions",Transactions);
+            long value = transactions.insert("debit",null,DebitedValues);
+            System.out.println("\n\n\n\n\n\n " + value);
+            this.dialog.show();
+        }catch (Exception e){
+            System.out.println(e.getMessage() + "| WithDraw Amount");
+        }
     }
 
 }

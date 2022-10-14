@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
     // * Ask the person wants to logout or not. And if yes it logout and exits.
     public void onBackPressed(){
         MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(this);
-        alertDialogBuilder.setTitle("UserDetails").setMessage("Do you Want to exit?").setPositiveButton("Back", (dialogInterface, i1) -> {}).setNegativeButton("Exit", (dialogInterface, i1) -> {
+        alertDialogBuilder.setTitle("C1ph3R Bank!").setMessage("Do you Want to exit?").setPositiveButton("Back", (dialogInterface, i1) -> {}).setNegativeButton("Exit", (dialogInterface, i1) -> {
             finishAffinity();
         }).show();
     }

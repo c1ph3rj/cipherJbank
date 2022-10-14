@@ -2,6 +2,7 @@ package com.c1ph3r.c1ph3rbank;
 
 import android.os.Bundle;
 
+import androidx.annotation.ContentView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.c1ph3r.c1ph3rbank.controller.Transactions;
 import com.c1ph3r.c1ph3rbank.model.TransactionHelper;
@@ -41,11 +43,11 @@ public class debit_history extends Fragment {
         super.onStart();
         View view = getView();
         System.out.println(user.getName());
-        TransactionHelper transactionHelper = new TransactionHelper(getActivity(),user.getName());
+        TransactionHelper transactionHelper = new TransactionHelper(getActivity(),user.getName()+"Transactions");
         ListView debitList = view.findViewById(R.id.Debit_list);
         Transactions transactions = new Transactions();
         System.out.println(transactions.getDebit(transactionHelper).toString());
-        ListAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, transactions.getDebit(transactionHelper));
+        ListAdapter adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_expandable_list_item_1, transactions.getDebit(transactionHelper));
         debitList.setAdapter(adapter);
     }
 }

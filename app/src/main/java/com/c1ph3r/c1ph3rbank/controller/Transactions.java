@@ -10,24 +10,24 @@ import java.util.ArrayList;
 public class Transactions {
     public ArrayList<String> getDebit(TransactionHelper transactionHelper){
         ArrayList<String> debit = new ArrayList<>();
-        SQLiteDatabase getDebit = transactionHelper.getReadableDatabase();
-        Cursor cursor = getDebit.query("debit",new String[]{"transactions"},null,null,null,null, "id" +" DESC","1");
-        cursor.moveToFirst();
-        while(cursor.moveToNext()){
-            debit.add(cursor.getString(1));
-        }
-        cursor.close();
+        SQLiteDatabase getTransaction = transactionHelper.getReadableDatabase();
+        Cursor debit1 = getTransaction.query("debit",new String[]{"transactions"},null,null,null,null,null);
+        debit1.moveToFirst();
+        do{
+            debit.add(debit1.getString(0));
+        }while(debit1.moveToNext());
+        debit1.close();
         return debit;
     }
 
     public ArrayList<String> getCredit(TransactionHelper transactionHelper){
         ArrayList<String> credit = new ArrayList<>();
         SQLiteDatabase getCredit = transactionHelper.getReadableDatabase();
-        Cursor cursor = getCredit.query("credit",new String[]{"id","transactions"},null,null,null,null, "id" +" DESC","1");
+        Cursor cursor = getCredit.query("credit",new String[]{"transactions"},null,null,null,null,null);
         cursor.moveToFirst();
-        while(cursor.moveToNext()){
-            credit.add(cursor.getString(1));
-        }
+        do{
+            credit.add(cursor.getString(0));
+        }while((cursor.moveToNext()));
         cursor.close();
         return credit;
     }

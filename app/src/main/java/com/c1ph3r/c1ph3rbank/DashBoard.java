@@ -1,33 +1,29 @@
 package com.c1ph3r.c1ph3rbank;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.MenuItem;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.c1ph3r.c1ph3rbank.controller.UserDetail;
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
 import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.navigation.NavigationBarView;
 
 public class DashBoard extends AppCompatActivity {
-    UserDataBase userData = null;
+    UserDataBase userData;
 
-    public DashBoard(UserDataBase userData){
-        this.userData = userData;
-    }
     public DashBoard(){
         Withdraw withdraw = new Withdraw();
         this.userData = withdraw.userData;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,28 +39,25 @@ public class DashBoard extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.SecondActivity, new DashboardLayout(userData)).commit();
         bottomNavigation.setSelectedItemId(R.id.dashboard_icon);
-        bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment = null;
-                switch(item.getItemId()){
-                    case R.id.dashboard_icon:
-                        fragment = new DashboardLayout(userData);
-                        break;
-                    case R.id.Settings_icon:
-                        fragment = new SettingsLayout();
-                        break;
-                }
-                getSupportFragmentManager().beginTransaction().replace(R.id.SecondActivity, fragment).commit();
-                return true;
+        bottomNavigation.setOnItemSelectedListener(item -> {
+            Fragment fragment = null;
+            switch(item.getItemId()){
+                case R.id.dashboard_icon:
+                    fragment = new DashboardLayout(userData);
+                    break;
+                case R.id.Settings_icon:
+                    fragment = new SettingsLayout(userData);
+                    break;
             }
+            assert fragment != null;
+            getSupportFragmentManager().beginTransaction().replace(R.id.SecondActivity, fragment).commit();
+            return true;
         });
 
     }
     public void onBackPressed(){
         MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(this);
-        alertDialogBuilder.setTitle("Quit").setMessage("Do you Want to Logout?").setPositiveButton("Back", (dialogInterface, i1) -> {}).setNegativeButton("Exit", (dialogInterface, i1) -> {
-            UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
+        alertDialogBuilder.setTitle("Logout").setMessage("Do you Want to Logout?").setPositiveButton("Yes", (dialogInterface, i1) -> {UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
             UserDetail userDetail = new UserDetail();
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
             int value = sharedPreferences.getInt("value",0);
@@ -73,7 +66,7 @@ public class DashBoard extends AppCompatActivity {
             userData.setLoggedIn(false);
             userDetail.updateUserData(value, userData.getBalance(),userDataBaseHelper, userData.isLoggedIn() );
             Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            startActivity(intent);}).setNegativeButton("Back", (dialogInterface, i1) -> {
         }).show();
     }
 }
