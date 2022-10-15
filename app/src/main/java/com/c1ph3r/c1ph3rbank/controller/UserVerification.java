@@ -77,9 +77,10 @@ public class UserVerification {
      // if the user Name and password it wrong the colors of the layout will be changed.
      // the color of the field will remains the same until user focus the field.
     public void verifyTheUser(ArrayList<UserDataBase> userDataBase) {
-        try{
+        //try{
             boolean userVerified = false;
             // Verifying userName and password using for Loop and model class.
+
             for (int i = 0; i < userDataBase.size(); i++) {
                 // Verifying the userName field.
                 if (String.valueOf(userName.getText()).equals(userDataBase.get(i).getName())) {
@@ -89,6 +90,7 @@ public class UserVerification {
                     pinValidate = (pinValidate.length()==3)? "0" + pinValidate:(pinValidate.length()==2)?"00"+pinValidate:(pinValidate.length()==1)?"000"+pinValidate:pinValidate;
                     // Verifying the pin.
                     if (String.valueOf(pin.getText()).equals(pinValidate)) {
+                        System.out.println("\n\n\n\n\n done \n\n\n\n\n");
                         userData = userDataBase.get(i);
                         // Using shared preference to send the index value of the user stored in the model class.
                         SharedPreferences sharedPreferences = mainActivity.getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
@@ -98,8 +100,7 @@ public class UserVerification {
                         // Saving the user state for user friendly application.
                         userData.setLoggedIn(true);
                         UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(mainActivity);
-                        UserDetail userDetail = new UserDetail();
-                        userDetail.updateUserData(userDataBase.indexOf(userDataBase.get(i)), userData.getBalance(),userDataBaseHelper, userData.isLoggedIn() );
+                        userDataBaseHelper.updateUserData(userDataBase.indexOf(userDataBase.get(i)), userData.getBalance(), userData.isLoggedIn() );
                         // Calling the dashboard fragment.
                         Intent intent = new Intent(mainActivity, DashBoard.class);
                         mainActivity.startActivity(intent);
@@ -126,8 +127,8 @@ public class UserVerification {
                 userNameLayout.setErrorIconTintList(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
             }
 
-        }catch(Exception e){
-            System.out.println(e+" | verify the user.");
-        }
+//        }catch(Exception e){
+//            System.out.println(e +" | verify the user.");
+//        }
     }
 }

@@ -64,9 +64,7 @@ public class NewUserRegisterPage extends AppCompatActivity {
     // While clicking the Submit button this method will execute.
     public void onClickSubmitBtn(View view) {
 
-        UserDetail userDetail = new UserDetail();
-        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
-        userDetail.getUserDataBase(userDataBaseHelper);
+        userDataBaseHelper.getUserDataBase();
 
         // Converting the editable text values to String values.
         userName = String.valueOf(newUserName.getText());
@@ -79,7 +77,7 @@ public class NewUserRegisterPage extends AppCompatActivity {
             UserRegistration userRegistration = new UserRegistration();
             // Initializing the value inside the user registration.
             // Based on the result it calls the method inside the UserRegistration.
-            int resultCode = userRegistration.userDataVerification(userName, pin,reEnteredPin, accountNo, accountType, userDetail.userDataBase, userDataBaseHelper);
+            int resultCode = userRegistration.userDataVerification(userName, pin,reEnteredPin, accountNo, accountType, userDataBaseHelper.userDataBase);
             switch (resultCode){
                 case 1:
                     // if the result code is 1 then userName layout color will change otherwise it is ignored.
@@ -98,10 +96,14 @@ public class NewUserRegisterPage extends AppCompatActivity {
                     Toast.makeText(this, getString(R.string.IfAccountTypeIsEmpty),Toast.LENGTH_SHORT ).show();
                     break;
                 case 6:
-                    Toast.makeText(this, getString(R.string.IfRegistrationSuccess), Toast.LENGTH_SHORT).show();
-                    new TransactionHelper(this, (userName + "Transactions"));
-                    Intent intent = new Intent(this, MainActivity.class);
-                    startActivity(intent);
+                    boolean result = userDataBaseHelper.addUserToUserDetails(userName, pin, accountNo, accountType, userRegistration.getBalance(),  userRegistration.getExpiryDate());
+                    if(result){
+                        Toast.makeText(this, getString(R.string.IfRegistrationSuccess), Toast.LENGTH_SHORT).show();
+                        new TransactionHelper(this, (userName + "Transactions"));
+                        Intent intent = new Intent(this, MainActivity.class);
+                        startActivity(intent);
+                    }else
+                        Toast.makeText(this, R.string.IfRegistrationFailed, Toast.LENGTH_SHORT).show();
                     break;
                 case 7:
                     errorDisplay(userNameLayout,  getString(R.string.userNameAlreadyExists));
@@ -109,10 +111,6 @@ public class NewUserRegisterPage extends AppCompatActivity {
                 case 8:
                     errorDisplay(accountNoLayout, getString(R.string.AccountNumberAlreadyExists));
                     break;
-                case 9:
-                    Toast.makeText(this, R.string.IfRegistrationFailed, Toast.LENGTH_SHORT).show();
-                    break;
-
             }
     }
 
@@ -144,9 +142,5 @@ public class NewUserRegisterPage extends AppCompatActivity {
             }
         });
     }
-
-
-
-
 
 }

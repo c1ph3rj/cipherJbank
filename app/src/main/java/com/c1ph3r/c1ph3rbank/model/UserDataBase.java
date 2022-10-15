@@ -11,7 +11,7 @@ public class UserDataBase implements Serializable {
     private int balance;
 
 
-    private final int accountNo;
+    private final String accountNo;
     private final String accountType;
     private final String name;
     private boolean isLoggedIn;
@@ -23,7 +23,7 @@ public class UserDataBase implements Serializable {
 
     private final String expiryDate;
     //Creating the constructor for getting the input from the user.
-    public UserDataBase(String name, int accountNo, int pin, String accountType, int balance, String expiryDate, boolean loggedIn) {
+    public UserDataBase(String name, String accountNo, int pin, String accountType, int balance, String expiryDate, boolean loggedIn) {
         //setting the constructor values to the default values of the class.
         this.pin = pin;
         this.balance = balance;
@@ -56,7 +56,7 @@ public class UserDataBase implements Serializable {
         return name;
     }
 
-    public int getAccountNo() {
+    public String getAccountNo() {
         return accountNo;
     }
 

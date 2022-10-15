@@ -64,7 +64,7 @@ public class DashboardLayout extends Fragment {
                 greetTheUser.setText("");
                 greetTheUser.setText("Welcome\n" + userData.getName());
                 ATM_UserName.setText( userData.getName());
-                ATM_AccountNo.setText(String.valueOf( userData.getAccountNo()));
+                ATM_AccountNo.setText( userData.getAccountNo());
                 ATM_ExpiryDate.setText( userData.getExpiryDate());
                 Transactions = view.findViewById(R.id.transactionBtn);
 

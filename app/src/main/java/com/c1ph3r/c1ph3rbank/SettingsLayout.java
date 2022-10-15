@@ -46,13 +46,12 @@ public class SettingsLayout extends Fragment {
                 MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(getActivity());
                 alertDialogBuilder.setTitle("Quit").setMessage("Do you Want to Logout?").setPositiveButton("No", (dialogInterface, i1) -> {}).setNegativeButton("Yes", (dialogInterface, i1) -> {
                     UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(getActivity());
-                    UserDetail userDetail = new UserDetail();
                     SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
                     int value = sharedPreferences.getInt("value",0);
-                    userDetail.getUserDataBase(userDataBaseHelper);
-                    userData = userDetail.getUserData(value);
+                    userDataBaseHelper.getUserDataBase();
+                    userData = userDataBaseHelper.getUserData(value);
                     userData.setLoggedIn(false);
-                    userDetail.updateUserData(value, userData.getBalance(),userDataBaseHelper, userData.isLoggedIn() );
+                    userDataBaseHelper.updateUserData(value, userData.getBalance(), userData.isLoggedIn() );
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
                 }).show();

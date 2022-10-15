@@ -42,7 +42,7 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-    public UserDetail userDetail;
+    UserDataBaseHelper userDataBaseHelper;
     UserVerification userVerification;
     TextInputEditText userName, pin;
     TextInputLayout pinLayout, userNameLayout;
@@ -56,19 +56,18 @@ public class MainActivity extends AppCompatActivity {
         userNameLayout = findViewById(R.id.UserNameLayout);
         pin = findViewById(R.id.PinField);
 
-        userDetail = new UserDetail();
-        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
-        userDetail.getUserDataBase(userDataBaseHelper);
+        userDataBaseHelper = new UserDataBaseHelper(this);
+        userDataBaseHelper.getUserDataBase();
         userVerification = new UserVerification();
         userVerification.dataRequiredForVerification(MainActivity.this,userName,pin,pinLayout,userNameLayout);
         userVerification.changeColorOfInputs();
 
-        for(int i =0;i<userDetail.userDataBase.size();i++){
-            if(userDetail.userDataBase.get(i).isLoggedIn()){
+        for(int i =0;i<userDataBaseHelper.userDataBase.size();i++){
+            if(userDataBaseHelper.userDataBase.get(i).isLoggedIn()){
                 Intent intent = new Intent(this, DashBoard.class);
                 SharedPreferences sharedPreferences = this.getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editValues = sharedPreferences.edit();
-                editValues.putInt("value",userDetail.userDataBase.indexOf(userDetail.userDataBase.get(i)));
+                editValues.putInt("value",userDataBaseHelper.userDataBase.indexOf(userDataBaseHelper.userDataBase.get(i)));
                 editValues.apply();
                 startActivity(intent);
                 finish();
@@ -78,10 +77,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickLoginBtn(View view) {
-        userDetail = new UserDetail();
-        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
-        userDetail.getUserDataBase(userDataBaseHelper);
-        ArrayList<UserDataBase> userDataBase = userDetail.userDataBase;
+        userDataBaseHelper = new UserDataBaseHelper(this);
+        userDataBaseHelper.getUserDataBase();
+        ArrayList<UserDataBase> userDataBase = userDataBaseHelper.userDataBase;
         userVerification.verifyTheUser(userDataBase);
         // Query part
         SQLiteDatabase userDB = userDataBaseHelper.getReadableDatabase();

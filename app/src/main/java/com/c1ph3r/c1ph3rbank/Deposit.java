@@ -30,11 +30,11 @@ import java.util.Date;
 
 public class Deposit extends AppCompatActivity {
     public UserDataBase userData;
-    UserDetail userDetail;
     MaterialButton depositButton;
     TextInputLayout amountFieldLayout;
     TextInputEditText amountField;
     Dialog dialog;
+    UserDataBaseHelper userDataBaseHelper;
     int value;
 
     @Override
@@ -42,7 +42,6 @@ public class Deposit extends AppCompatActivity {
         try{
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_deposit);
-            Intent intent = getIntent();
             depositButton = findViewById(R.id.DepositButton);
             amountField = findViewById(R.id.AmountFieldDeposit);
             amountFieldLayout = findViewById(R.id.AmountFieldLayoutDeposit);
@@ -53,10 +52,9 @@ public class Deposit extends AppCompatActivity {
             dialog.setCancelable(false);
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
             value = sharedPreferences.getInt("value",0);
-            userDetail = new UserDetail();
-            UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
-            userDetail.getUserDataBase(userDataBaseHelper);
-            userData = userDetail.userDataBase.get(value);
+            userDataBaseHelper = new UserDataBaseHelper(this);
+            userDataBaseHelper.getUserDataBase();
+            userData = userDataBaseHelper.userDataBase.get(value);
             MaterialButton backBtnDeposit = dialog.findViewById(R.id.backBtnDeposit);
             backBtnDeposit.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -130,8 +128,8 @@ public class Deposit extends AppCompatActivity {
         try{
             userData.setBalance(userData.getBalance() + Integer.parseInt(String.valueOf(amountField.getText())));
             System.out.println(userData.getBalance());
-            UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
-            userDetail.updateUserData(value, userData.getBalance(),userDataBaseHelper, userData.isLoggedIn() );
+            userDataBaseHelper = new UserDataBaseHelper(this);
+            userDataBaseHelper.updateUserData(value, userData.getBalance(), userData.isLoggedIn() );
             TransactionHelper transactionHelper = new TransactionHelper(this, (userData.getName() + "Transactions"));
             SQLiteDatabase transactions = transactionHelper.getWritableDatabase();
             @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy   HH:mm:ss");

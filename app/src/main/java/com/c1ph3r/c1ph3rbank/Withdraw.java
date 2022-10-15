@@ -34,6 +34,7 @@ import java.util.Date;
 
 public class Withdraw extends AppCompatActivity {
     public UserDataBase userData;
+    UserDataBaseHelper userDataBaseHelper;
     MaterialButton withdrawButton;
     TextInputLayout amountFieldLayout;
     TextInputEditText amountField, toName;
@@ -57,10 +58,9 @@ public class Withdraw extends AppCompatActivity {
             toName = findViewById(R.id.SenderIDField);
             amountField = findViewById(R.id.AmountField);
             amountFieldLayout = findViewById(R.id.AmountFieldLayout);
-            userDetail = new UserDetail();
-            UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
-            userDetail.getUserDataBase(userDataBaseHelper);
-            userData = userDetail.userDataBase.get(value);
+            userDataBaseHelper = new UserDataBaseHelper(this);
+            userDataBaseHelper.getUserDataBase();
+            userData = userDataBaseHelper.userDataBase.get(value);
             TransactionHelper transactionHelper = new TransactionHelper(this, userData.getName()+"Transactions");
             backBtnWithdraw.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -142,7 +142,7 @@ public class Withdraw extends AppCompatActivity {
             userData.setBalance(userData.getBalance() - Integer.parseInt(String.valueOf(amountField.getText())));
             System.out.println(userData.getBalance());
             UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
-            userDetail.updateUserData(value, userData.getBalance(),userDataBaseHelper, userData.isLoggedIn() );
+            userDataBaseHelper.updateUserData(value, userData.getBalance(), userData.isLoggedIn() );
             TransactionHelper transactionHelper = new TransactionHelper(this, (userData.getName() + "Transactions"));
             SQLiteDatabase transactions = transactionHelper.getWritableDatabase();
             @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy   HH:mm:ss");

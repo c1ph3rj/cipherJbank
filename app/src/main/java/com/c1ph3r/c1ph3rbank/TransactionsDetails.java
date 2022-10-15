@@ -31,12 +31,11 @@ public class TransactionsDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transactions_details);
         BottomNavigationView bottomNavigation = findViewById(R.id.BottomNavTransactions);
-        UserDetail userDetail = new UserDetail();
         UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
-        userDetail.getUserDataBase(userDataBaseHelper);
+        userDataBaseHelper.getUserDataBase();
         SharedPreferences sharedPreferences =getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
         int value = sharedPreferences.getInt("value", 0);
-        UserDataBase userData = userDetail.getUserData(value);
+        UserDataBase userData = userDataBaseHelper.getUserData(value);
         getSupportFragmentManager().beginTransaction().replace(R.id.transactionPage, new debit_history(userData)).commit();
         bottomNavigation.setSelectedItemId(R.id.dashboard_icon);
 

@@ -17,7 +17,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class DashBoard extends AppCompatActivity {
     UserDataBase userData;
-
+    UserDataBaseHelper userDataBaseHelper;
     public DashBoard(){
         Withdraw withdraw = new Withdraw();
         this.userData = withdraw.userData;
@@ -29,11 +29,11 @@ public class DashBoard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
         UserDetail userDetail = new UserDetail();
-        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
-        userDetail.getUserDataBase(userDataBaseHelper);
+        userDataBaseHelper = new UserDataBaseHelper(this);
+        userDataBaseHelper.getUserDataBase();
         SharedPreferences sharedPreferences =getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
         int value = sharedPreferences.getInt("value", 0);
-        userData = userDetail.getUserData(value);
+        userData = userDataBaseHelper.getUserData(value);
 
         BottomNavigationView bottomNavigation = findViewById(R.id.BottomNav);
 
@@ -57,14 +57,14 @@ public class DashBoard extends AppCompatActivity {
     }
     public void onBackPressed(){
         MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(this);
-        alertDialogBuilder.setTitle("Logout").setMessage("Do you Want to Logout?").setPositiveButton("Yes", (dialogInterface, i1) -> {UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(this);
-            UserDetail userDetail = new UserDetail();
+        alertDialogBuilder.setTitle("Logout").setMessage("Do you Want to Logout?").setPositiveButton("Yes", (dialogInterface, i1) -> {
+            userDataBaseHelper = new UserDataBaseHelper(this);
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
             int value = sharedPreferences.getInt("value",0);
-            userDetail.getUserDataBase(userDataBaseHelper);
-            userData = userDetail.getUserData(value);
+            userDataBaseHelper.getUserDataBase();
+            userData = userDataBaseHelper.getUserData(value);
             userData.setLoggedIn(false);
-            userDetail.updateUserData(value, userData.getBalance(),userDataBaseHelper, userData.isLoggedIn() );
+            userDataBaseHelper.updateUserData(value, userData.getBalance() , userData.isLoggedIn() );
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);}).setNegativeButton("No", (dialogInterface, i1) -> {
         }).show();

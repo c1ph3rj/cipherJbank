@@ -53,9 +53,9 @@
     <string name="back">Back</string>
 
     //ERROR MESSAGES
-    <string name="IfUserNameIsEmpty">Enter a UserName.</string>
+    <string name="IfUserNameIsEmpty">Enter a Valid UserName.</string>
     <string name="IfPinIsEmpty">Enter a valid Pin.</string>
-    <string name="IfReEnterPinIsEmpty">Enter a ConfirmPin.</string>
+    <string name="IfReEnterPinIsEmpty">Pin does not match.</string>
     <string name="IfAccountNoIsEmpty">Enter a Valid AccountNumber.</string>
     <string name="IfAccountTypeIsEmpty">Choose your Account Type.</string>
     <string name="IfRegistrationFailed">Failed To Register.</string>
