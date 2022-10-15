@@ -77,7 +77,7 @@ public class UserVerification {
      // if the user Name and password it wrong the colors of the layout will be changed.
      // the color of the field will remains the same until user focus the field.
     public void verifyTheUser(ArrayList<UserDataBase> userDataBase) {
-        //try{
+        try{
             boolean userVerified = false;
             // Verifying userName and password using for Loop and model class.
 
@@ -127,8 +127,8 @@ public class UserVerification {
                 userNameLayout.setErrorIconTintList(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
             }
 
-//        }catch(Exception e){
-//            System.out.println(e +" | verify the user.");
-//        }
+        }catch(Exception e){
+            System.out.println(e +" | verify the user.");
+        }
     }
 }

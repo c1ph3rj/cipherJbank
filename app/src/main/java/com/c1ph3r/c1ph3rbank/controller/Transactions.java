@@ -11,27 +11,27 @@ import java.util.ArrayList;
 public class Transactions {
 
     // Method to return the Debit table as an arrayList using SQLite query.
-    public ArrayList<String> getDebit(TransactionHelper transactionHelper){
+    public ArrayList<String> getDebit(TransactionHelper transactionHelper) {
         ArrayList<String> debit = new ArrayList<>();
         SQLiteDatabase getTransaction = transactionHelper.getReadableDatabase();
-        Cursor debit1 = getTransaction.query("debit",new String[]{"transactions"},null,null,null,null,null);
+        Cursor debit1 = getTransaction.query("debit", new String[]{"transactions"}, null, null, null, null, null);
         debit1.moveToFirst();
-        do{
+        do {
             debit.add(debit1.getString(0));
-        }while(debit1.moveToNext());
+        } while (debit1.moveToNext());
         debit1.close();
         return debit;
     }
 
     // Method to return the credit table from the Db as an array list.
-    public ArrayList<String> getCredit(TransactionHelper transactionHelper){
+    public ArrayList<String> getCredit(TransactionHelper transactionHelper) {
         ArrayList<String> credit = new ArrayList<>();
         SQLiteDatabase getCredit = transactionHelper.getReadableDatabase();
-        Cursor cursor = getCredit.query("credit",new String[]{"transactions"},null,null,null,null,null);
+        Cursor cursor = getCredit.query("credit", new String[]{"transactions"}, null, null, null, null, null);
         cursor.moveToFirst();
-        do{
+        do {
             credit.add(cursor.getString(0));
-        }while((cursor.moveToNext()));
+        } while ((cursor.moveToNext()));
         cursor.close();
         return credit;
     }

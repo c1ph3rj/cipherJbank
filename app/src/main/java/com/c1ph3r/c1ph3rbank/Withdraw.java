@@ -2,7 +2,6 @@ package com.c1ph3r.c1ph3rbank;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -16,10 +15,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
-import com.c1ph3r.c1ph3rbank.controller.UserDetail;
 import com.c1ph3r.c1ph3rbank.model.TransactionHelper;
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
 import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
@@ -31,48 +27,56 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
+// Method to Withdraw money from the UserAccounts.
 public class Withdraw extends AppCompatActivity {
+    // Declaring the reusable variables.
     public UserDataBase userData;
     UserDataBaseHelper userDataBaseHelper;
     MaterialButton withdrawButton;
     TextInputLayout amountFieldLayout;
     TextInputEditText amountField, toName;
-    UserDetail userDetail;
     Dialog dialog;
     int value;
+
+    // Method executes when the Activity get started.
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_withdraw);
         try{
-            dialog = new Dialog(this);
-            dialog.setContentView(R.layout.custom_dialog_one);
-            dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.gradient1));
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-            dialog.setCancelable(false);
-            MaterialButton backBtnWithdraw = dialog.findViewById(R.id.backBtnWithdraw);
-            withdrawButton = findViewById(R.id.withdrawButton);
-            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
-            value = sharedPreferences.getInt("value",0);
-            toName = findViewById(R.id.SenderIDField);
-            amountField = findViewById(R.id.AmountField);
-            amountFieldLayout = findViewById(R.id.AmountFieldLayout);
-            userDataBaseHelper = new UserDataBaseHelper(this);
-            userDataBaseHelper.getUserDataBase();
-            userData = userDataBaseHelper.userDataBase.get(value);
-            TransactionHelper transactionHelper = new TransactionHelper(this, userData.getName()+"Transactions");
-            backBtnWithdraw.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Withdraw.this,DashBoard.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
+           customDialogBox();
         } catch(Exception e){
             System.out.println(e.getMessage() + "| OnCreate WithDraw");
         }
+    }
+
+    private void customDialogBox() {
+        // Custom Dialog box with Confirmation message for the transaction.
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.custom_dialog_one);
+        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.gradient1));
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+        dialog.setCancelable(false);
+        MaterialButton backBtnWithdraw = dialog.findViewById(R.id.backBtnWithdraw);
+        withdrawButton = findViewById(R.id.withdrawButton);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
+        value = sharedPreferences.getInt("value",0);
+        toName = findViewById(R.id.SenderIDField);
+        amountField = findViewById(R.id.AmountField);
+        amountFieldLayout = findViewById(R.id.AmountFieldLayout);
+        userDataBaseHelper = new UserDataBaseHelper(this);
+        userDataBaseHelper.getUserDataBase();
+        userData = userDataBaseHelper.userDataBase.get(value);
+        new TransactionHelper(this, userData.getName()+"Transactions");
+        backBtnWithdraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Withdraw.this,DashBoard.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     public void error(){

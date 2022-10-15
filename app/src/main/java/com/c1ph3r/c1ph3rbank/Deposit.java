@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.c1ph3r.c1ph3rbank.controller.UserDetail;
 import com.c1ph3r.c1ph3rbank.model.TransactionHelper;
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
 import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;

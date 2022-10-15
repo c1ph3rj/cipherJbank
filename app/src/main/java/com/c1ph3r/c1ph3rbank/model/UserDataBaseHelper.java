@@ -2,14 +2,13 @@ package com.c1ph3r.c1ph3rbank.model;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.c1ph3r.c1ph3rbank.NewUserRegisterPage;
-import com.c1ph3r.c1ph3rbank.controller.UserRegistration;
 
 import java.util.ArrayList;
 

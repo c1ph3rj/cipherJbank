@@ -9,7 +9,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.c1ph3r.c1ph3rbank.controller.UserDetail;
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
 import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -28,31 +27,33 @@ public class DashBoard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
-        UserDetail userDetail = new UserDetail();
-        userDataBaseHelper = new UserDataBaseHelper(this);
-        userDataBaseHelper.getUserDataBase();
-        SharedPreferences sharedPreferences =getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
-        int value = sharedPreferences.getInt("value", 0);
-        userData = userDataBaseHelper.getUserData(value);
+        try{
+            userDataBaseHelper = new UserDataBaseHelper(this);
+            userDataBaseHelper.getUserDataBase();
+            SharedPreferences sharedPreferences =getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
+            int value = sharedPreferences.getInt("value", 0);
+            userData = userDataBaseHelper.getUserData(value);
 
-        BottomNavigationView bottomNavigation = findViewById(R.id.BottomNav);
+            BottomNavigationView bottomNavigation = findViewById(R.id.BottomNav);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.SecondActivity, new DashboardLayout(userData)).commit();
-        bottomNavigation.setSelectedItemId(R.id.dashboard_icon);
-        bottomNavigation.setOnItemSelectedListener(item -> {
-            Fragment fragment = null;
-            switch(item.getItemId()){
-                case R.id.dashboard_icon:
-                    fragment = new DashboardLayout(userData);
-                    break;
-                case R.id.Settings_icon:
-                    fragment = new SettingsLayout(userData);
-                    break;
-            }
-            assert fragment != null;
-            getSupportFragmentManager().beginTransaction().replace(R.id.SecondActivity, fragment).commit();
-            return true;
-        });
+            getSupportFragmentManager().beginTransaction().replace(R.id.SecondActivity, new DashboardLayout(userData)).commit();
+            bottomNavigation.setSelectedItemId(R.id.dashboard_icon);
+            bottomNavigation.setOnItemSelectedListener(item -> {
+                Fragment fragment = null;
+                switch(item.getItemId()){
+                    case R.id.dashboard_icon:
+                        fragment = new DashboardLayout(userData);
+                        break;
+                    case R.id.Settings_icon:
+                        fragment = new SettingsLayout(userData);
+                        break;
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.SecondActivity, fragment).commit();
+                return true;
+            });
+        }catch (Exception e){
+            System.out.println(e + "| DashBoard");
+        }
 
     }
     public void onBackPressed(){

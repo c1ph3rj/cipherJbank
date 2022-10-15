@@ -10,7 +10,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.c1ph3r.c1ph3rbank.controller.UserDetail;
 import com.c1ph3r.c1ph3rbank.controller.UserRegistration;
 import com.c1ph3r.c1ph3rbank.model.TransactionHelper;
 import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
