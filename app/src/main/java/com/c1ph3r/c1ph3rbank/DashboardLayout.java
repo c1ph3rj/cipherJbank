@@ -68,41 +68,29 @@ public class DashboardLayout extends Fragment {
                 ATM_ExpiryDate.setText( userData.getExpiryDate());
                 Transactions = view.findViewById(R.id.transactionBtn);
 
-                sendMoney.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getActivity(), Withdraw.class);
-                        intent.putExtra("value", userData);
-                        startActivity(intent);
-                        getActivity().finish();
-                    }
+                sendMoney.setOnClickListener(view -> {
+                    Intent intent = new Intent(getActivity(), Withdraw.class);
+                    intent.putExtra("value", userData);
+                    startActivity(intent);
+                    getActivity().finish();
                 });
-                balance.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getActivity(), Balance.class);
-                        intent.putExtra("value", userData);
-                        startActivity(intent);
-                        getActivity().finish();
-                    }
+                balance.setOnClickListener(view -> {
+                    Intent intent = new Intent(getActivity(), Balance.class);
+                    intent.putExtra("value", userData);
+                    startActivity(intent);
+                    getActivity().finish();
                 });
-                deposit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getActivity(), Deposit.class);
-                        intent.putExtra("value", userData);
-                        startActivity(intent);
-                        requireActivity().finish();
-                    }
+                deposit.setOnClickListener(view -> {
+                    Intent intent = new Intent(getActivity(), Deposit.class);
+                    intent.putExtra("value", userData);
+                    startActivity(intent);
+                    requireActivity().finish();
                 });
 
-                Transactions.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent (getActivity(), TransactionsDetails.class);
-                        startActivity(intent);
-                        requireActivity().finish();
-                    }
+                Transactions.setOnClickListener(view -> {
+                    Intent intent = new Intent (getActivity(), TransactionsDetails.class);
+                    startActivity(intent);
+                    requireActivity().finish();
                 });
             }
         }

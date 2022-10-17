@@ -76,5 +76,14 @@
     <string name="heading_debit">Transactions\nDebits:</string>
     <string name="transactions_credits_text">Transactions\nCredits:</string>
     <string name="userNameAndPasswordError">UserName or Password invalid.</string>
+    <string name="Do_you_want_to_logout">Do you Want to Logout?</string>
+    <string name="Quit_String">Quit</string>
+    <string name="No_String">No</string>
+    <string name="Yes_String">Yes</string>
+    <string name="Logout_text">Logout</string>
+    <string name="IndexValue_Strings">IndexValue</string>
+    <string name="value_String">value</string>
+    <string name="DoYouWantToWithraw_String">Do you want to Withdraw ?</string>
+    <string name="AmoutDebited_String">Amount Has been taken from your account.\nBalance:</string>
 
 </resources>

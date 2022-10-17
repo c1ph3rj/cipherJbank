@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.c1ph3r.c1ph3rbank.controller.Transactions;
 import com.c1ph3r.c1ph3rbank.model.TransactionHelper;
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
 
@@ -48,11 +47,11 @@ public class credit_history extends Fragment {
                 TransactionHelper transactionHelper = new TransactionHelper(getActivity(),user.getName()+"Transactions");
                 // List view is used to display the the list of transaction.
                 ListView creditList = view.findViewById(R.id.credit_List);
-                ListAdapter adapter = new ArrayAdapter<String>(getActivity(), R.layout.item_layout_for_list, transactionHelper.getCredit());
+                ListAdapter adapter = new ArrayAdapter<>(getActivity(), R.layout.item_layout_for_list, transactionHelper.getCredit());
                 creditList.setAdapter(adapter);
             }
         }catch(Exception e){
-            System.out.println(e.toString()+" | Credit History");
+            System.out.println(e +" | Credit History");
         }
     }
 }

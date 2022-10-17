@@ -35,16 +35,16 @@ public class debit_history extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_debit_history, container, false);
     }
 
-    // Method to display the array list to the
+    // Method to display the array list to the listview.
     public void onStart() {
         super.onStart();
         View view = getView();
         try{
             if(view != null){
+                // Set the debit history to the list view adapter.
                 TransactionHelper transactionHelper = new TransactionHelper(getActivity(),user.getName()+"Transactions");
                 ListView debitList = view.findViewById(R.id.Debit_list);
                 ListAdapter adapter = new ArrayAdapter<String>(getActivity(), R.layout.item_layout_for_list, transactionHelper.getDebit());

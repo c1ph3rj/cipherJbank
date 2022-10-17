@@ -2,7 +2,6 @@ package com.c1ph3r.c1ph3rbank.model;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -21,7 +20,6 @@ public class UserDataBaseHelper extends SQLiteOpenHelper {
     SQLiteDatabase userDBWrite;
     SQLiteDatabase userDBRead;
     Cursor cursor;
-    UserDataBaseHelper userDataBaseHelper;
 
     // PREDEFINED DATA BASES METHODS AND CONSTRUCTORS.
     public UserDataBaseHelper(@Nullable Context context) {

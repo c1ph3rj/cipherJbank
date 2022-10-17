@@ -20,7 +20,7 @@ import com.google.android.material.textfield.TextInputLayout;
 public class NewUserRegisterPage extends AppCompatActivity {
     public TextInputEditText newUserName, newPin, newAccountNumber, reEnterPin;
     public TextInputLayout userNameLayout, pinLayout, reEnteredPinLayout, accountNoLayout;
-    public String userName, pin, reEnteredPin, accountNo, balance;
+    public String userName, pin, reEnteredPin, accountNo;
     UserRegistration userRegistration;
     public RadioGroup newAccountType;
     public String accountType = "";
@@ -126,7 +126,7 @@ public class NewUserRegisterPage extends AppCompatActivity {
         Layout.setErrorIconTintList(ColorStateList.valueOf(getColor(R.color.ErrorRed)));
     }
 
-
+    // Changing the colors of the input when the user focus the field.
     public void changeColorOfInputsRegistration(TextInputLayout Layout, TextInputEditText editText) {
         editText.setOnFocusChangeListener((view, b) -> {
             if(Layout.isErrorEnabled()){

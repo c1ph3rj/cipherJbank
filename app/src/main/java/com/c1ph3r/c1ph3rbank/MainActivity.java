@@ -24,17 +24,17 @@ import java.util.ArrayList;
     -- Primary --
     Verify if the username is available or not --done
     Verify userName and password using the SQLite queries -- half done
-    Add transactions page
-    Handle errors using try catch
-    Convert strings to string resource file
-    Clean up code finally
-    Add comments
+    Add transactions page --done
+    Handle errors using try catch --done
+    Convert strings to string resource file --done
+    Clean up code finally --done
+    Add comments --done
     -- Secondary --
     Add is user logged in feature --done
     Add change pin option
-    Clean the ui
-    Add logout feature
     Add splash screen effect if possible and utilize the time to verify is user Logged in
+    Clean the ui --done
+    Add logout feature --done
 */
 
 
@@ -53,15 +53,18 @@ public class MainActivity extends AppCompatActivity {
         userNameLayout = findViewById(R.id.UserNameLayout);
         pin = findViewById(R.id.PinField);
 
+        // To get the user Details from the user Database.
         userDataBaseHelper = new UserDataBaseHelper(this);
         userDataBaseHelper.getUserDataBase();
         userVerification = new UserVerification();
         userVerification.dataRequiredForVerification(MainActivity.this,userName,pin,pinLayout,userNameLayout);
         userVerification.changeColorOfInputs();
 
+        // To check the user db any user is logged in or not.
         for(int i =0;i<userDataBaseHelper.userDataBase.size();i++){
             if(userDataBaseHelper.userDataBase.get(i).isLoggedIn()){
                 Intent intent = new Intent(this, DashBoard.class);
+                // if logged in store the value of the index in shared preference.
                 SharedPreferences sharedPreferences = this.getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editValues = sharedPreferences.edit();
                 editValues.putInt("value",userDataBaseHelper.userDataBase.indexOf(userDataBaseHelper.userDataBase.get(i)));
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // On click Login button to verify the user.
     public void onClickLoginBtn(View view) {
         userDataBaseHelper = new UserDataBaseHelper(this);
         userDataBaseHelper.getUserDataBase();
@@ -86,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // Changing the color when focused
     public void OnClickPinLayout(View view) {
         pinLayout.setErrorEnabled(false);
         pinLayout.setHintTextColor(ColorStateList.valueOf(getColor(R.color.Indigo)));

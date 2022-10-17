@@ -45,15 +45,20 @@ public class SettingsLayout extends Fragment {
             View view = getView();
             if(view!=null){
                 MaterialButton Logout = view.findViewById(R.id.Logout);
+                // This that need to be done when logout button is clicked.
                 Logout.setOnClickListener(view1 -> {
                     MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(getActivity());
-                    alertDialogBuilder.setTitle("Quit").setMessage("Do you Want to Logout?").setPositiveButton("No", (dialogInterface, i1) -> {}).setNegativeButton("Yes", (dialogInterface, i1) -> {
+                    alertDialogBuilder.setTitle(getString(R.string.Quit_String)).setMessage(getString(R.string.Do_you_want_to_logout)).setPositiveButton(getString(R.string.No_String), (dialogInterface, i1) -> {})
+                            .setNegativeButton(getString(R.string.Yes_String), (dialogInterface, i1) -> {
                         UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(getActivity());
-                        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
-                        int value = sharedPreferences.getInt("value",0);
+                        // Getting the index value of the user from the shared preference.
+                        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(getString(R.string.IndexValue_Strings), Context.MODE_PRIVATE);
+                        int value = sharedPreferences.getInt(getString(R.string.value_String),0);
                         userDataBaseHelper.getUserDataBase();
+                        // Changing the logging state if the user press yes.
                         userData = userDataBaseHelper.getUserData(value);
                         userData.setLoggedIn(false);
+                        // updating the values to the sqlite DB.
                         userDataBaseHelper.updateUserData(value, userData.getBalance(), userData.isLoggedIn() );
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
