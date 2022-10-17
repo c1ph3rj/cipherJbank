@@ -12,8 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.c1ph3r.c1ph3rbank.model.UserDataBase;
-import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
+import com.c1ph3r.c1ph3rbank.Model.UserDataBase;
+import com.c1ph3r.c1ph3rbank.DBHelper.UserDataBaseHelper;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 

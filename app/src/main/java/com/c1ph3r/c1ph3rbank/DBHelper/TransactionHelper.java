@@ -1,4 +1,4 @@
-package com.c1ph3r.c1ph3rbank.model;
+package com.c1ph3r.c1ph3rbank.DBHelper;
 
 import android.content.Context;
 import android.database.Cursor;

@@ -9,8 +9,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.c1ph3r.c1ph3rbank.model.UserDataBase;
-import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
+import com.c1ph3r.c1ph3rbank.Model.UserDataBase;
+import com.c1ph3r.c1ph3rbank.DBHelper.UserDataBaseHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 

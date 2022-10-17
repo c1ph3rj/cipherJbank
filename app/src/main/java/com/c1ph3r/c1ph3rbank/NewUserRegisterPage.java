@@ -11,8 +11,8 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.c1ph3r.c1ph3rbank.controller.UserRegistration;
-import com.c1ph3r.c1ph3rbank.model.TransactionHelper;
-import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
+import com.c1ph3r.c1ph3rbank.DBHelper.TransactionHelper;
+import com.c1ph3r.c1ph3rbank.DBHelper.UserDataBaseHelper;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 

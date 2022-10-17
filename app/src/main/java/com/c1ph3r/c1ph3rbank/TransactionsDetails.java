@@ -8,8 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import com.c1ph3r.c1ph3rbank.model.UserDataBase;
-import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
+import com.c1ph3r.c1ph3rbank.Model.UserDataBase;
+import com.c1ph3r.c1ph3rbank.DBHelper.UserDataBaseHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class TransactionsDetails extends AppCompatActivity {

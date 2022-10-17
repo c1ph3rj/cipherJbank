@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.c1ph3r.c1ph3rbank.model.UserDataBase;
+import com.c1ph3r.c1ph3rbank.Model.UserDataBase;
 import com.google.android.material.button.MaterialButton;
 
 
@@ -67,26 +67,28 @@ public class DashboardLayout extends Fragment {
                 ATM_AccountNo.setText( userData.getAccountNo());
                 ATM_ExpiryDate.setText( userData.getExpiryDate());
                 Transactions = view.findViewById(R.id.transactionBtn);
-
+                // On click Send Money btn.
                 sendMoney.setOnClickListener(view -> {
                     Intent intent = new Intent(getActivity(), Withdraw.class);
                     intent.putExtra("value", userData);
                     startActivity(intent);
                     getActivity().finish();
                 });
+                // On click Balance btn.
                 balance.setOnClickListener(view -> {
                     Intent intent = new Intent(getActivity(), Balance.class);
                     intent.putExtra("value", userData);
                     startActivity(intent);
                     getActivity().finish();
                 });
+                // On click Deposit btn.
                 deposit.setOnClickListener(view -> {
                     Intent intent = new Intent(getActivity(), Deposit.class);
                     intent.putExtra("value", userData);
                     startActivity(intent);
                     requireActivity().finish();
                 });
-
+                // On click Transaction btn.
                 Transactions.setOnClickListener(view -> {
                     Intent intent = new Intent (getActivity(), TransactionsDetails.class);
                     startActivity(intent);

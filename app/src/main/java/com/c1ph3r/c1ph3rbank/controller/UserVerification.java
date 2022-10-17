@@ -10,8 +10,8 @@ import android.database.sqlite.SQLiteDatabase;
 import com.c1ph3r.c1ph3rbank.DashBoard;
 import com.c1ph3r.c1ph3rbank.MainActivity;
 import com.c1ph3r.c1ph3rbank.R;
-import com.c1ph3r.c1ph3rbank.model.UserDataBase;
-import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
+import com.c1ph3r.c1ph3rbank.Model.UserDataBase;
+import com.c1ph3r.c1ph3rbank.DBHelper.UserDataBaseHelper;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -73,13 +73,13 @@ public class UserVerification {
 
 
     // Codes now running on these method.
-     // used to verify the userName and password using the model class.
+     // used to verify the userName and password using the DBHelper class.
      // if the user Name and password it wrong the colors of the layout will be changed.
      // the color of the field will remains the same until user focus the field.
     public void verifyTheUser(ArrayList<UserDataBase> userDataBase) {
         try{
             boolean userVerified = false;
-            // Verifying userName and password using for Loop and model class.
+            // Verifying userName and password using for Loop and DBHelper class.
 
             for (int i = 0; i < userDataBase.size(); i++) {
                 // Verifying the userName field.
@@ -92,7 +92,7 @@ public class UserVerification {
                     if (String.valueOf(pin.getText()).equals(pinValidate)) {
                         System.out.println("\n\n\n\n\n done \n\n\n\n\n");
                         userData = userDataBase.get(i);
-                        // Using shared preference to send the index value of the user stored in the model class.
+                        // Using shared preference to send the index value of the user stored in the DBHelper class.
                         SharedPreferences sharedPreferences = mainActivity.getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editValues = sharedPreferences.edit();
                         editValues.putInt("value",userDataBase.indexOf(userDataBase.get(i)));

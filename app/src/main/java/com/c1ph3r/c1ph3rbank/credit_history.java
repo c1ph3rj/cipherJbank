@@ -11,8 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.c1ph3r.c1ph3rbank.model.TransactionHelper;
-import com.c1ph3r.c1ph3rbank.model.UserDataBase;
+import com.c1ph3r.c1ph3rbank.DBHelper.TransactionHelper;
+import com.c1ph3r.c1ph3rbank.Model.UserDataBase;
 
 public class credit_history extends Fragment {
     UserDataBase user;

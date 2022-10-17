@@ -1,4 +1,4 @@
-package com.c1ph3r.c1ph3rbank.model;
+package com.c1ph3r.c1ph3rbank.DBHelper;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+
+import com.c1ph3r.c1ph3rbank.Model.UserDataBase;
 
 import java.util.ArrayList;
 

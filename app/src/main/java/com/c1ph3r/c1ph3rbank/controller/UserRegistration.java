@@ -1,6 +1,6 @@
 package com.c1ph3r.c1ph3rbank.controller;
 
-import com.c1ph3r.c1ph3rbank.model.UserDataBase;
+import com.c1ph3r.c1ph3rbank.Model.UserDataBase;
 
 import java.util.ArrayList;
 import java.util.Random;

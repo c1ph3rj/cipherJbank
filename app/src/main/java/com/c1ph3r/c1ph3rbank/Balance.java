@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.c1ph3r.c1ph3rbank.model.UserDataBase;
+import com.c1ph3r.c1ph3rbank.Model.UserDataBase;
 import com.google.android.material.button.MaterialButton;
 
 public class Balance extends AppCompatActivity {
