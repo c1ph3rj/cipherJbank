@@ -81,10 +81,10 @@ public class MainActivity extends AppCompatActivity {
         userDataBaseHelper = new UserDataBaseHelper(this);
         userDataBaseHelper.getUserDataBase();
         ArrayList<UserDataBase> userDataBase = userDataBaseHelper.userDataBase;
-        userVerification.verifyTheUser(userDataBase);
+        //userVerification.verifyTheUser(userDataBase);
         // Query part
         SQLiteDatabase userDB = userDataBaseHelper.getReadableDatabase();
-        userVerification.verifyTheUser(userDB, userName, pin);
+        userVerification.verifyTheUser(userDataBase, userDataBaseHelper, userName, pin);
         //Query part
 
 

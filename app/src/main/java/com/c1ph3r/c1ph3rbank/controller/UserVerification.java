@@ -34,22 +34,20 @@ public class UserVerification {
 
     // QUERY PART START
     // its working
+    // Codes now running on these method.
+    // used to verify the userName and password using the DBHelper class.
+    // if the user Name and password it wrong the colors of the layout will be changed.
+    // the color of the field will remains the same until user focus the field.
      // it verifies the user credentials.
-    public void verifyTheUser( SQLiteDatabase userDB, TextInputEditText userName, TextInputEditText pin) {
-        Cursor matchUserName = userDB.rawQuery("SELECT userName FROM userDetails WHERE userName = ?",new String[]{String.valueOf(userName.getText())} );
-        Cursor pinMatch = userDB.rawQuery("SELECT userName , pin FROM userDetails WHERE userName =? AND pin = ?",new String[]{String.valueOf(userName.getText()),String.valueOf(pin.getText())} );
-        matchUserName.moveToFirst();
-        if(matchUserName.getCount() == 1 && matchUserName.getString(0).equals(String.valueOf(userName.getText()))) {
-            pinMatch.moveToFirst();
-            if(pinMatch.getCount() == 1 && ((pinMatch.getString(0).equals(String.valueOf(userName.getText()))) &&pinMatch.getString(1).equals(String.valueOf(pin.getText())))) {
-                // Verified using query.
-                System.out.println((pinMatch.getString(0) + pinMatch.getString(1)));
-                System.out.println(pinMatch.getPosition());
-            }
+    public void verifyTheUser(ArrayList<UserDataBase> userDataBase, UserDataBaseHelper userDB, TextInputEditText userName, TextInputEditText pin) {
+        int value = userDB.isUserPresentInDB(userName, pin);
+        if (value == -1) {
+            pinLayoutChangeColor();
+        } else if (value == -2) {
+            userNameChangeColor();
+        }else{
+            storeData(userDataBase, value);
         }
-        pinMatch.close();
-        matchUserName.close();
-
     }
 
     // QUERY PART END
@@ -71,64 +69,43 @@ public class UserVerification {
         });
     }
 
-
-    // Codes now running on these method.
-     // used to verify the userName and password using the DBHelper class.
-     // if the user Name and password it wrong the colors of the layout will be changed.
-     // the color of the field will remains the same until user focus the field.
-    public void verifyTheUser(ArrayList<UserDataBase> userDataBase) {
-        try{
-            boolean userVerified = false;
-            // Verifying userName and password using for Loop and DBHelper class.
-
-            for (int i = 0; i < userDataBase.size(); i++) {
-                // Verifying the userName field.
-                if (String.valueOf(userName.getText()).equals(userDataBase.get(i).getName())) {
-                    // Converting and checking the pin field if the user enters 0000 it will be changed
-                    // These condition will manage the error.
-                    String pinValidate = String.valueOf(userDataBase.get(i).getPin());
-                    pinValidate = (pinValidate.length()==3)? "0" + pinValidate:(pinValidate.length()==2)?"00"+pinValidate:(pinValidate.length()==1)?"000"+pinValidate:pinValidate;
-                    // Verifying the pin.
-                    if (String.valueOf(pin.getText()).equals(pinValidate)) {
-                        System.out.println("\n\n\n\n\n done \n\n\n\n\n");
-                        userData = userDataBase.get(i);
-                        // Using shared preference to send the index value of the user stored in the DBHelper class.
-                        SharedPreferences sharedPreferences = mainActivity.getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editValues = sharedPreferences.edit();
-                        editValues.putInt("value",userDataBase.indexOf(userDataBase.get(i)));
-                        editValues.apply();
-                        // Saving the user state for user friendly application.
-                        userData.setLoggedIn(true);
-                        UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(mainActivity);
-                        userDataBaseHelper.updateUserData(userDataBase.indexOf(userDataBase.get(i)), userData.getBalance(), userData.isLoggedIn() );
-                        // Calling the dashboard fragment.
-                        Intent intent = new Intent(mainActivity, DashBoard.class);
-                        mainActivity.startActivity(intent);
-                        // Killing the main activity.
-                        mainActivity.finish();
-                    }else{
-                        // If the pin is wrong it display the error message in pin field.
-                        pinLayout.setError(mainActivity.getString(R.string.ErrorInvalidPin));
-                        pinLayout.setBoxStrokeColor(mainActivity.getColor(R.color.ErrorRed));
-                        pinLayout.setErrorTextColor(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
-                        pinLayout.setHintTextColor(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
-                        pinLayout.setErrorIconTintList(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
-                    }
-                    userVerified = true;
-                    break;
-                }
-            }if(!userVerified){
-                // If the user is not verified this part will execute.
-                userNameLayout.setError(mainActivity.getString(R.string.userNameAndPasswordError));
-                userNameLayout.setErrorEnabled(true);
-                userNameLayout.setBoxStrokeErrorColor(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
-                userNameLayout.setErrorTextColor(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
-                userNameLayout.setHintTextColor(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
-                userNameLayout.setErrorIconTintList(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
-            }
-
-        }catch(Exception e){
-            System.out.println(e +" | verify the user.");
-        }
+    void pinLayoutChangeColor(){
+        // If the pin is wrong it display the error message in pin field.
+        pinLayout.setError(mainActivity.getString(R.string.ErrorInvalidPin));
+        pinLayout.setBoxStrokeColor(mainActivity.getColor(R.color.ErrorRed));
+        pinLayout.setErrorTextColor(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
+        pinLayout.setHintTextColor(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
+        pinLayout.setErrorIconTintList(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
     }
+
+
+    void userNameChangeColor(){
+        // If the user is not verified this part will execute.
+        userNameLayout.setError(mainActivity.getString(R.string.userNameAndPasswordError));
+        userNameLayout.setErrorEnabled(true);
+        userNameLayout.setBoxStrokeErrorColor(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
+        userNameLayout.setErrorTextColor(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
+        userNameLayout.setHintTextColor(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
+        userNameLayout.setErrorIconTintList(ColorStateList.valueOf(mainActivity.getColor(R.color.ErrorRed)));
+    }
+
+   void storeData(ArrayList<UserDataBase> userDataBase, int i){
+       userData = userDataBase.get(i);
+       System.out.println("Hello");
+       // Using shared preference to send the index value of the user stored in the DBHelper class.
+       SharedPreferences sharedPreferences = mainActivity.getSharedPreferences("IndexValue", Context.MODE_PRIVATE);
+       SharedPreferences.Editor editValues = sharedPreferences.edit();
+       editValues.putInt("value",userDataBase.indexOf(userDataBase.get(i)));
+       editValues.apply();
+       // Saving the user state for user friendly application.
+       userData.setLoggedIn(true);
+       UserDataBaseHelper userDataBaseHelper = new UserDataBaseHelper(mainActivity);
+       userDataBaseHelper.updateUserData(userDataBase.indexOf(userDataBase.get(i)), userData.getBalance(), userData.isLoggedIn() );
+       // Calling the dashboard fragment.
+       Intent intent = new Intent(mainActivity, DashBoard.class);
+       mainActivity.startActivity(intent);
+       // Killing the main activity.
+       mainActivity.finish();
+    }
+
 }

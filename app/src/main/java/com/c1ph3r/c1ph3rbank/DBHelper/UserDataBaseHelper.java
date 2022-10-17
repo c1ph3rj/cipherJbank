@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 
 
 import com.c1ph3r.c1ph3rbank.Model.UserDataBase;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
@@ -105,6 +106,36 @@ public class UserDataBaseHelper extends SQLiteOpenHelper {
             // Moving the cursor until its done.
         }while(cursor.moveToNext());
         cursor.close();
+    }
+
+    public int isUserPresentInDB(TextInputEditText userName, TextInputEditText pin){
+        SQLiteDatabase userDB = this.getReadableDatabase();
+        Cursor matchUserName = userDB.rawQuery("SELECT userName FROM userDetails WHERE userName = ?", new String[]{String.valueOf(userName.getText())});
+        Cursor pinMatch = userDB.rawQuery("SELECT userName , pin FROM userDetails WHERE userName =? AND pin = ?", new String[]{String.valueOf(userName.getText()), String.valueOf(pin.getText())});
+        matchUserName.moveToFirst();
+        int value = -1;
+        if (matchUserName.getCount() == 1 && matchUserName.getString(0).equals(String.valueOf(userName.getText()))) {
+            pinMatch.moveToFirst();
+            if (pinMatch.getCount() == 1 && ((matchUserName.getString(0).equals(String.valueOf(userName.getText()))) && pinMatch.getString(1).equals(String.valueOf(pin.getText())))) {
+                // Verified using query.
+                Cursor cursor = userDB.rawQuery("SELECT * FROM userDetails", null);
+                cursor.moveToFirst();
+                do {
+                    if (cursor.getString(1).equals(String.valueOf(userName.getText())))
+                        value = cursor.getPosition();
+                } while (cursor.moveToNext());
+                pinMatch.close();
+                matchUserName.close();
+                return value;
+            }
+            pinMatch.close();
+            matchUserName.close();
+            return -1;
+
+        }
+        pinMatch.close();
+        matchUserName.close();
+        return -2;
     }
 
 
