@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.c1ph3r.c1ph3rbank.model.UserDataBase;
 import com.c1ph3r.c1ph3rbank.model.UserDataBaseHelper;
@@ -63,6 +64,14 @@ public class SettingsLayout extends Fragment {
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
                     }).show();
+                });
+
+                MaterialButton changePin = view.findViewById(R.id.ChangePin);
+                changePin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getActivity(), "Coming soon ..", Toast.LENGTH_SHORT).show();
+                    }
                 });
             }
         }catch (Exception e){
